@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#FFFFFF"
+    android:background="@color/bg_white"
     android:fitsSystemWindows="true"
     tools:context=".activity.DangKyActivity">
 
@@ -16,110 +17,125 @@
         android:padding="28dp">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/logo"
             android:scaleType="fitCenter"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/tvTieuDeDangKy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ĐĂNG KÝ TÀI KHOẢN"
+            android:text="TẠO TÀI KHOẢN"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#1C1C1C"
-            android:layout_marginBottom="4dp" />
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tạo tài khoản mới để mua sắm trải nghiệm"
-            android:textColor="#8E8E93"
+            android:text="Đăng ký để trải nghiệm mua sắm tuyệt vời"
+            android:textColor="@color/text_secondary"
             android:textSize="14sp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="32dp" />
 
         <EditText
             android:id="@+id/edtHoTenDangKy"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="Họ và tên *"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="textPersonName"
             android:background="@drawable/bg_edittext_modern"
             android:paddingHorizontal="20dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="16dp" />
 
         <EditText
             android:id="@+id/edtEmailDangKy"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="Email *"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="textEmailAddress"
             android:background="@drawable/bg_edittext_modern"
             android:paddingHorizontal="20dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="16dp" />
 
         <EditText
             android:id="@+id/edtMatKhauDangKy"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="Mật khẩu *"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="textPassword"
             android:background="@drawable/bg_edittext_modern"
             android:paddingHorizontal="20dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="16dp" />
 
         <EditText
             android:id="@+id/edtSoDienThoaiDangKy"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="Số điện thoại"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="phone"
             android:background="@drawable/bg_edittext_modern"
             android:paddingHorizontal="20dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="16dp" />
 
         <EditText
             android:id="@+id/edtDiaChiDangKy"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:hint="Địa chỉ giao hàng"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="textPostalAddress"
             android:background="@drawable/bg_edittext_modern"
             android:paddingHorizontal="20dp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="32dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDangKy"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:text="ĐĂNG KÝ"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#111111"
+            android:textColor="@color/text_on_yellow"
+            android:background="@drawable/bg_btn_primary"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="24dp"
+            android:elevation="2dp"
+            android:stateListAnimator="@null" />
 
-        <TextView
-            android:id="@+id/tvChuyenSangDangNhap"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đã có tài khoản? Đăng nhập ngay"
-            android:textColor="#1A73E8"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:padding="8dp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đã có tài khoản? "
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvChuyenSangDangNhap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đăng nhập ngay"
+                android:textColor="@color/primary_yellow"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:padding="4dp" />
+        </LinearLayout>
 
     </LinearLayout>
 

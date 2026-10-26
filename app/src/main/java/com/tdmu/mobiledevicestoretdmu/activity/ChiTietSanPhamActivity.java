@@ -110,7 +110,7 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
         boolean thanhCong = databaseHelper.themVaoGioHang(maTK, sanPham.getMaSP(), sanPham.getGia());
         if (thanhCong) {
             Toast.makeText(this, "Đã thêm " + sanPham.getTenSP() + " vào giỏ hàng!", Toast.LENGTH_SHORT).show();
-            taiThongTinSanPham(); // Cập nhật lại giao diện
+            taiThongTinSanPham();
         } else {
             Toast.makeText(this, "Thêm vào giỏ hàng thất bại (có thể do vượt quá tồn kho)!", Toast.LENGTH_SHORT).show();
         }

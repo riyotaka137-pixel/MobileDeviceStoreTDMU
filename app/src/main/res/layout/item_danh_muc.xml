@@ -4,20 +4,19 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:layout_marginEnd="10dp"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="10dp"
+    android:layout_marginEnd="12dp"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="12dp"
     android:background="@drawable/bg_card_modern"
-    android:elevation="1dp">
+    android:elevation="0dp">
 
     <TextView
         android:id="@+id/tvTenDanhMuc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tên Danh Mục"
-        android:textColor="#1C1C1C"
+        android:textColor="@color/text_primary"
         android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_marginEnd="8dp" />
+        android:textStyle="bold" />
 
 </LinearLayout>

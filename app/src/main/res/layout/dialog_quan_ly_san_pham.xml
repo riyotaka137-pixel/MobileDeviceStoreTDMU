@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF">
+    android:background="@drawable/bg_card_modern">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,139 +17,144 @@
             android:text="THÔNG TIN SẢN PHẨM"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#1C1C1C"
+            android:textColor="@color/text_primary"
             android:gravity="center"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="24dp" />
 
         <EditText
             android:id="@+id/edtTenSPDialog"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:hint="Tên sản phẩm *"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="textPersonName"
             android:background="@drawable/bg_edittext_modern"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="12dp" />
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Danh mục sản phẩm *"
-            android:textColor="#1C1C1C"
-            android:textSize="13sp"
-            android:layout_marginBottom="4dp" />
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
 
         <Spinner
             android:id="@+id/spnDanhMucDialog"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:background="@drawable/bg_edittext_modern"
             android:paddingHorizontal="12dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="16dp" />
 
         <EditText
             android:id="@+id/edtGiaSPDialog"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:hint="Giá bán (VNĐ) *"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="number"
             android:background="@drawable/bg_edittext_modern"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="12dp" />
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="16dp" />
 
         <EditText
             android:id="@+id/edtSoLuongSPDialog"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="52dp"
             android:hint="Số lượng tồn kho *"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="number"
             android:background="@drawable/bg_edittext_modern"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="12dp" />
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="16dp" />
 
         <EditText
             android:id="@+id/edtThuongHieuSPDialog"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Thương hiệu (Apple, Samsung,...)"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:layout_height="52dp"
+            android:hint="Thương hiệu"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="text"
             android:background="@drawable/bg_edittext_modern"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="12dp" />
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hình ảnh sản phẩm"
-            android:textColor="#1C1C1C"
-            android:textSize="13sp"
-            android:layout_marginBottom="4dp" />
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
 
         <ImageView
             android:id="@+id/imgPreviewDialogSP"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             android:scaleType="fitCenter"
             android:background="@drawable/bg_edittext_modern"
-            android:padding="8dp"
-            android:layout_marginBottom="8dp" />
+            android:padding="16dp"
+            android:layout_marginBottom="12dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnChonAnhDialogSP"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="54dp"
             android:text="CHỌN ẢNH TỪ THƯ VIỆN"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#1A73E8"
+            android:textColor="@color/text_primary"
+            android:background="@drawable/bg_btn_secondary"
             android:textStyle="bold"
-            android:textSize="13sp"
-            android:layout_marginBottom="16dp" />
+            android:textSize="14sp"
+            android:layout_marginBottom="24dp"
+            android:elevation="0dp" />
 
         <EditText
             android:id="@+id/edtMoTaSPDialog"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:hint="Mô tả chi tiết sản phẩm"
-            android:textColorHint="#8E8E93"
-            android:textColor="#1C1C1C"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
             android:inputType="textMultiLine"
             android:gravity="top"
-            android:padding="12dp"
+            android:padding="20dp"
             android:background="@drawable/bg_edittext_modern"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="32dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnHuyDialogSP"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="54dp"
                 android:layout_weight="1"
                 android:text="HỦY"
-                android:backgroundTint="#8E8E93"
-                android:textColor="#FFFFFF"
-                android:layout_marginEnd="8dp" />
+                android:background="@drawable/bg_btn_secondary"
+                android:textColor="@color/text_primary"
+                android:textStyle="bold"
+                android:layout_marginEnd="12dp"
+                android:elevation="0dp" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLuuDialogSP"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="54dp"
                 android:layout_weight="1"
                 android:text="LƯU"
-                android:backgroundTint="#111111"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+                android:background="@drawable/bg_btn_primary"
+                android:textColor="@color/text_on_yellow"
+                android:textStyle="bold"
+                android:elevation="2dp"
+                android:stateListAnimator="@null" />
 
         </LinearLayout>
 

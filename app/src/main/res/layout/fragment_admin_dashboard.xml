@@ -4,26 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F8F9FA">
+    android:background="@color/bg_light">
 
     <!-- Header Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/bg_white"
         android:elevation="1dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="14dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/logo"
             android:scaleType="fitCenter"
             android:contentDescription="Logo Admin"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="12dp" />
 
         <TextView
             android:id="@+id/tvAdminDashboardTitle"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TRANG CHỦ DASHBOARD"
-            android:textColor="#1C1C1C"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -41,21 +41,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingBottom="20dp">
+        android:paddingBottom="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="THỐNG KÊ TỔNG QUAN HỆ THỐNG"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#1C1C1C"
+                android:textColor="@color/text_primary"
                 android:layout_marginBottom="16dp" />
 
             <!-- Overview Cards Container (Horizontal Grid) -->
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:baselineAligned="false"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="24dp">
 
                 <!-- Card 1: Revenue -->
                 <LinearLayout
@@ -74,9 +74,9 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     android:background="@drawable/bg_card_modern"
-                    android:padding="12dp"
-                    android:elevation="1dp"
-                    android:layout_marginEnd="6dp">
+                    android:padding="16dp"
+                    android:elevation="0dp"
+                    android:layout_marginEnd="8dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -84,8 +84,8 @@
                         android:minLines="2"
                         android:gravity="center"
                         android:text="DOANH THU"
-                        android:textColor="#8E8E93"
-                        android:textSize="11sp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -93,13 +93,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0 đ"
-                        android:textColor="#E53935"
-                        android:textSize="13sp"
+                        android:textColor="@color/primary_black"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:gravity="center"
-                        android:layout_marginTop="6dp" />
+                        android:layout_marginTop="8dp" />
 
                 </LinearLayout>
 
@@ -111,9 +111,9 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     android:background="@drawable/bg_card_modern"
-                    android:padding="12dp"
-                    android:elevation="1dp"
-                    android:layout_marginEnd="6dp">
+                    android:padding="16dp"
+                    android:elevation="0dp"
+                    android:layout_marginEnd="8dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -121,8 +121,8 @@
                         android:minLines="2"
                         android:gravity="center"
                         android:text="ĐƠN CHỜ"
-                        android:textColor="#8E8E93"
-                        android:textSize="11sp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -130,13 +130,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0 đơn"
-                        android:textColor="#F57C00"
-                        android:textSize="13sp"
+                        android:textColor="@color/primary_yellow"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:gravity="center"
-                        android:layout_marginTop="6dp" />
+                        android:layout_marginTop="8dp" />
 
                 </LinearLayout>
 
@@ -148,8 +148,8 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     android:background="@drawable/bg_card_modern"
-                    android:padding="12dp"
-                    android:elevation="1dp">
+                    android:padding="16dp"
+                    android:elevation="0dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -157,8 +157,8 @@
                         android:minLines="2"
                         android:gravity="center"
                         android:text="KHÁCH HÀNG"
-                        android:textColor="#8E8E93"
-                        android:textSize="11sp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -166,13 +166,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="0 TK"
-                        android:textColor="#1C1C1C"
-                        android:textSize="13sp"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:gravity="center"
-                        android:layout_marginTop="6dp" />
+                        android:layout_marginTop="8dp" />
 
                 </LinearLayout>
 
@@ -182,26 +182,27 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="24dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stroke_light">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="#FFFFFF"
-                    android:padding="16dp">
+                    android:background="@color/bg_white"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Biểu đồ doanh thu 7 ngày qua"
-                        android:textColor="#1C1C1C"
-                        android:textSize="15sp"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="16dp" />
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChartDoanhThu"
@@ -218,24 +219,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stroke_light">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="#FFFFFF"
-                    android:padding="16dp">
+                    android:background="@color/bg_white"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tỷ trọng doanh số theo danh mục"
-                        android:textColor="#1C1C1C"
-                        android:textSize="15sp"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="12dp" />
+                        android:layout_marginBottom="16dp" />
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/pieChartDanhMuc"

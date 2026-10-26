@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginTop="12dp"
-    android:background="#FFFFFF"
-    android:elevation="2dp"
-    android:padding="16dp">
+    android:layout_marginTop="16dp"
+    android:background="@drawable/bg_card_modern"
+    android:elevation="0dp"
+    android:padding="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,24 +22,30 @@
             android:text="Mã ĐH: #1"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#333333" />
+            android:textColor="@color/text_primary" />
 
         <TextView
             android:id="@+id/tvNgayDatQuanLy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2026-10-15"
-            android:textColor="#757575" />
+            android:textColor="@color/text_secondary" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/stroke_light"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
 
     <TextView
         android:id="@+id/tvDanhSachSanPhamQuanLy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="• Sản phẩm 1 (x1)"
-        android:textColor="#5F6368"
-        android:textSize="13sp"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
         android:textStyle="italic"
         android:maxLines="3"
         android:ellipsize="end" />
@@ -48,34 +54,35 @@
         android:id="@+id/tvThongTinKHQuanLy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:text="Người nhận: Nguyễn Văn A (0987654321)\nĐịa chỉ: TDMU"
-        android:textColor="#424242"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
         android:lineSpacingExtra="4dp"/>
 
     <TextView
         android:id="@+id/tvPhuongThucDHQuanLy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:text="Thanh toán: COD"
-        android:textColor="#5F6368"
-        android:textSize="13sp" />
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tvTongTienDHQuanLy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="8dp"
         android:text="Tổng: 25.000.000 đ"
-        android:textColor="#E53935"
+        android:textColor="@color/primary_black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -85,16 +92,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Chờ xác nhận"
-            android:textColor="#FF9800"
-            android:textStyle="bold|italic" />
+            android:textColor="@color/primary_yellow"
+            android:textStyle="bold" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnCapNhatTrangThaiDH"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="#00000000"
             android:text="CẬP NHẬT"
-            android:textColor="#1A73E8"
+            android:textColor="@color/text_primary"
             android:textStyle="bold" />
     </LinearLayout>
 

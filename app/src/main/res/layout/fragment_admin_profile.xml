@@ -4,41 +4,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F8F9FA">
+    android:background="@color/bg_light">
 
     <!-- Header Bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@color/bg_white"
         android:elevation="1dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="14dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/logo"
             android:scaleType="fitCenter"
             android:contentDescription="Logo Admin"
-            android:layout_marginEnd="10dp" />
+            android:layout_marginEnd="12dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TÀI KHOẢN ADMIN"
-            android:textColor="#1C1C1C"
-            android:textSize="18sp"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,69 +54,71 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
                 app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:strokeWidth="0dp">
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stroke_light">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:background="#FFFFFF"
-                    android:padding="28dp">
+                    android:background="@color/bg_white"
+                    android:padding="32dp">
 
                     <ImageView
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:src="@drawable/logo"
                         android:scaleType="fitCenter"
                         android:contentDescription="Avatar Admin"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_marginBottom="20dp" />
 
                     <TextView
                         android:id="@+id/tvProfileHoTen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Admin TDMU"
-                        android:textColor="#1C1C1C"
-                        android:textSize="22sp"
+                        android:textColor="@color/text_primary"
+                        android:textSize="24sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="4dp" />
+                        android:layout_marginBottom="8dp" />
 
                     <TextView
                         android:id="@+id/tvProfileEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="admin@gmail.com"
-                        android:textColor="#8E8E93"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="12dp" />
+                        android:textColor="@color/text_secondary"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="20dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Vai trò: Quản trị viên (Admin)"
-                        android:textColor="#2E7D32"
-                        android:textSize="13sp"
+                        android:textColor="@color/text_primary"
+                        android:textSize="14sp"
                         android:textStyle="bold"
-                        android:background="@drawable/bg_badge_status"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="6dp" />
+                        android:background="@drawable/bg_btn_secondary"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Prominent Red Logout Button -->
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnProfileDangXuat"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
-                android:text="ĐĂNG XUẤT TÀI KHOẢN"
-                android:backgroundTint="#D93025"
-                android:textColor="#FFFFFF"
+                android:text="ĐĂNG XUẤT"
+                android:background="@drawable/bg_btn_secondary"
+                android:textColor="#D93025"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:elevation="0dp" />
 
         </LinearLayout>
 
