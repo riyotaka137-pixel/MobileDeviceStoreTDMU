@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_user_ho_so"
+        android:icon="@drawable/ic_user"
+        android:title="Hồ sơ cá nhân" />
+
+    <item
+        android:id="@+id/menu_user_lich_su"
+        android:title="Lịch sử mua hàng" />
+
+    <item
+        android:id="@+id/menu_user_gio_hang"
+        android:icon="@drawable/ic_gio_hang"
+        android:title="Giỏ hàng của tôi" />
+
+    <item
+        android:id="@+id/menu_user_dang_xuat"
+        android:title="Đăng xuất" />
+
+</menu>

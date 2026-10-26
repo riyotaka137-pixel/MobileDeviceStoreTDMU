@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="12dp"
+    android:background="#FFFFFF"
+    android:elevation="2dp"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvMaDonHangLichSu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mã ĐH: #1"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#202124" />
+
+        <TextView
+            android:id="@+id/tvNgayDatLichSu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2026-10-15 15:00"
+            android:textColor="#757575"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvDanhSachSanPhamLichSu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="• Sản phẩm 1 (x1)"
+        android:textColor="#5F6368"
+        android:textSize="13sp"
+        android:textStyle="italic"
+        android:maxLines="3"
+        android:ellipsize="end" />
+
+    <TextView
+        android:id="@+id/tvDiaChiLichSu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Người nhận: Nguyễn Văn A (0912345678)\nĐịa chỉ: Thủ Dầu Một, Bình Dương"
+        android:textColor="#5F6368"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvPhuongThucLichSu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Thanh toán: COD"
+        android:textColor="#5F6368"
+        android:textSize="13sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTongTienLichSu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tổng: 15.000.000 đ"
+            android:textColor="#E53935"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTrangThaiLichSu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chờ xác nhận"
+            android:textColor="#FF9800"
+            android:textSize="14sp"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnHuyDonHangLichSu"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:text="HỦY ĐƠN"
+        android:textColor="#D32F2F"
+        android:background="#00000000"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+</LinearLayout>
