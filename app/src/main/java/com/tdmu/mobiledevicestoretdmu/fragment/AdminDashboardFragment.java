@@ -170,7 +170,8 @@ public class AdminDashboardFragment extends Fragment {
         pieChartDanhMuc.setHoleColor(Color.WHITE);
         pieChartDanhMuc.setHoleRadius(50f);
         pieChartDanhMuc.setTransparentCircleRadius(55f);
-        pieChartDanhMuc.setEntryLabelColor(Color.parseColor("#1C1C1C"));
+        // Đổi màu chữ của các label (nhãn danh mục) hiển thị ngoài biểu đồ
+        pieChartDanhMuc.setEntryLabelColor(Color.WHITE);
         pieChartDanhMuc.setEntryLabelTextSize(11f);
 
         pieChartDanhMuc.animateY(1400, Easing.EaseInOutQuad);

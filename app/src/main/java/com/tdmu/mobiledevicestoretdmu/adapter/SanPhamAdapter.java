@@ -3,6 +3,7 @@ package com.tdmu.mobiledevicestoretdmu.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +44,26 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
         holder.tvTenSanPham.setText(sanPham.getTenSP());
         holder.tvThuongHieuSanPham.setText(sanPham.getThuongHieu() != null ? sanPham.getThuongHieu() : "");
 
-        String giaFormat = String.format("%,d", sanPham.getGia()).replace(',', '.');
-        holder.tvGiaSanPham.setText(giaFormat + " đ");
+        // Xử lý logic hiển thị phần trăm giảm giá & giá khuyến mãi
+        if (sanPham.getPhanTramGiam() > 0) {
+            holder.tvBadgeGiamGia.setVisibility(View.VISIBLE);
+            holder.tvGiaGocSanPham.setVisibility(View.VISIBLE);
+            
+            holder.tvBadgeGiamGia.setText("-" + sanPham.getPhanTramGiam() + "%");
+            
+            String giaGocFormat = String.format("%,d", sanPham.getGia()).replace(',', '.');
+            holder.tvGiaGocSanPham.setText(giaGocFormat + " đ");
+            holder.tvGiaGocSanPham.setPaintFlags(holder.tvGiaGocSanPham.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+            String giaMoiFormat = String.format("%,d", sanPham.getGiaKhuyenMai()).replace(',', '.');
+            holder.tvGiaSanPham.setText(giaMoiFormat + " đ");
+        } else {
+            holder.tvBadgeGiamGia.setVisibility(View.GONE);
+            holder.tvGiaGocSanPham.setVisibility(View.GONE);
+            
+            String giaFormat = String.format("%,d", sanPham.getGia()).replace(',', '.');
+            holder.tvGiaSanPham.setText(giaFormat + " đ");
+        }
 
         // Load hình ảnh (hỗ trợ cả đường dẫn Internal Storage và tên Drawable)
         QuanLySanPhamAdapter.loadHinhAnhSanPham(context, sanPham.getHinhAnh(), holder.imgSanPham);
@@ -77,7 +96,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgSanPham;
-        TextView tvTenSanPham, tvThuongHieuSanPham, tvGiaSanPham;
+        TextView tvTenSanPham, tvThuongHieuSanPham, tvGiaSanPham, tvGiaGocSanPham, tvBadgeGiamGia;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +104,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
             tvTenSanPham = itemView.findViewById(R.id.tvTenSanPham);
             tvThuongHieuSanPham = itemView.findViewById(R.id.tvThuongHieuSanPham);
             tvGiaSanPham = itemView.findViewById(R.id.tvGiaSanPham);
+            tvGiaGocSanPham = itemView.findViewById(R.id.tvGiaGocSanPham);
+            tvBadgeGiamGia = itemView.findViewById(R.id.tvBadgeGiamGia);
         }
     }
 }

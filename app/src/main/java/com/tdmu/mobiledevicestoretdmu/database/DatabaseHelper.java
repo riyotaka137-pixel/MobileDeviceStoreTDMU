@@ -233,6 +233,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return tk;
     }
 
+    // Lấy danh sách sản phẩm đang có giảm giá (PhanTramGiam > 0)
+    public List<SanPham> getSanPhamKhuyenMai() {
+        List<SanPham> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Lấy những SP có phần trăm giảm > 0
+        Cursor cursor = db.rawQuery("SELECT * FROM SanPham WHERE PhanTramGiam > 0 ORDER BY PhanTramGiam DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                SanPham sp = new SanPham();
+                sp.setMaSP(cursor.getInt(0));
+                sp.setTenSP(cursor.getString(1));
+                sp.setMaDanhMuc(cursor.getInt(2));
+                sp.setGia(cursor.getInt(3));
+                sp.setSoLuong(cursor.getInt(4));
+                sp.setMoTa(cursor.getString(5));
+                sp.setHinhAnh(cursor.getString(6));
+                sp.setThuongHieu(cursor.getString(7));
+                sp.setPhanTramGiam(cursor.getColumnCount() > 8 ? cursor.getInt(8) : 0);
+                list.add(sp);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
     // Cập nhật thông tin cá nhân khách hàng
     public boolean updateThongTinCaNhan(int maTK, String hoTen, String sdt, String diaChi) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -500,7 +525,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Thêm sản phẩm
-    public void insertSanPham(String tenSP, int maDanhMuc, int gia, int soLuong, String moTa, String thuongHieu, String hinhAnh) {
+    public void insertSanPham(String tenSP, int maDanhMuc, int gia, int soLuong, String moTa, String thuongHieu, String hinhAnh, int phanTramGiam) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("TenSP", tenSP);
@@ -509,12 +534,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("SoLuong", soLuong);
         values.put("MoTa", moTa);
         values.put("ThuongHieu", thuongHieu);
+        values.put("PhanTramGiam", phanTramGiam);
         values.put("HinhAnh", hinhAnh != null ? hinhAnh : "");
         db.insert("SanPham", null, values);
     }
 
     public void insertSanPham(String tenSP, int maDanhMuc, int gia, int soLuong, String moTa, String thuongHieu) {
-        insertSanPham(tenSP, maDanhMuc, gia, soLuong, moTa, thuongHieu, "");
+        insertSanPham(tenSP, maDanhMuc, gia, soLuong, moTa, thuongHieu, "", 0);
     }
 
     // Lấy tất cả sản phẩm

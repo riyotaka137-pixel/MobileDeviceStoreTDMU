@@ -38,7 +38,7 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
 
     private RecyclerView rvQuanLySanPham;
     private TextView tvEmptyQuanLySanPham;
-    private Button btnThemSanPham;
+    private View btnThemSanPham;
     private ImageView btnBackHeader;
     private DatabaseHelper databaseHelper;
     private QuanLySanPhamAdapter adapter;
@@ -168,6 +168,7 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
         EditText edtTenSPDialog = dialogView.findViewById(R.id.edtTenSPDialog);
         Spinner spnDanhMucDialog = dialogView.findViewById(R.id.spnDanhMucDialog);
         EditText edtGiaSPDialog = dialogView.findViewById(R.id.edtGiaSPDialog);
+        EditText edtPhanTramGiamDialog = dialogView.findViewById(R.id.edtPhanTramGiamDialog);
         EditText edtSoLuongSPDialog = dialogView.findViewById(R.id.edtSoLuongSPDialog);
         EditText edtThuongHieuSPDialog = dialogView.findViewById(R.id.edtThuongHieuSPDialog);
         ImageView imgPreviewDialogSP = dialogView.findViewById(R.id.imgPreviewDialogSP);
@@ -204,6 +205,7 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String tenSP = edtTenSPDialog.getText().toString().trim();
                 String giaStr = edtGiaSPDialog.getText().toString().trim();
+                String phanTramGiamStr = edtPhanTramGiamDialog.getText().toString().trim();
                 String soLuongStr = edtSoLuongSPDialog.getText().toString().trim();
                 String thuongHieu = edtThuongHieuSPDialog.getText().toString().trim();
                 String hinhAnh = pathImageSelected;
@@ -218,8 +220,14 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
 
                 int gia = Integer.parseInt(giaStr);
                 int soLuong = Integer.parseInt(soLuongStr);
+                int phanTramGiam = phanTramGiamStr.isEmpty() ? 0 : Integer.parseInt(phanTramGiamStr);
+                
+                if (phanTramGiam < 0 || phanTramGiam > 100) {
+                    Toast.makeText(QuanLySanPhamActivity.this, "Phần trăm giảm giá phải từ 0 đến 100", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                databaseHelper.insertSanPham(tenSP, dmSelected.getMaDanhMuc(), gia, soLuong, moTa, thuongHieu, hinhAnh);
+                databaseHelper.insertSanPham(tenSP, dmSelected.getMaDanhMuc(), gia, soLuong, moTa, thuongHieu, hinhAnh, phanTramGiam);
                 Toast.makeText(QuanLySanPhamActivity.this, "Thêm sản phẩm thành công!", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 taiDanhSachSanPham();

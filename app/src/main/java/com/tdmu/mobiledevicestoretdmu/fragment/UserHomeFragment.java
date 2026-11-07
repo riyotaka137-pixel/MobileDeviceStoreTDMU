@@ -42,7 +42,8 @@ public class UserHomeFragment extends Fragment {
 
     private TextView tvXinChaoUser;
     private EditText edtTimKiem;
-    private Button btnGioHangHeader, btnTimKiem;
+    private ImageView btnGioHangHeader;
+    private Button btnTimKiem;
     private RecyclerView rvDanhMuc, rvSanPham;
 
     private DatabaseHelper databaseHelper;

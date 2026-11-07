@@ -53,8 +53,18 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
 
         holder.tvTenSPQuanLy.setText(sanPham.getTenSP());
 
-        String giaFormat = String.format("%,d", sanPham.getGia()).replace(',', '.');
-        holder.tvGiaSPQuanLy.setText("Giá: " + giaFormat + " đ");
+        if (sanPham.getPhanTramGiam() > 0) {
+            holder.tvBadgeGiamGiaQuanLy.setVisibility(View.VISIBLE);
+            holder.tvBadgeGiamGiaQuanLy.setText("-" + sanPham.getPhanTramGiam() + "%");
+            
+            String giaMoiFormat = String.format("%,d", sanPham.getGiaKhuyenMai()).replace(',', '.');
+            holder.tvGiaSPQuanLy.setText("Giá: " + giaMoiFormat + " đ");
+        } else {
+            holder.tvBadgeGiamGiaQuanLy.setVisibility(View.GONE);
+            String giaFormat = String.format("%,d", sanPham.getGia()).replace(',', '.');
+            holder.tvGiaSPQuanLy.setText("Giá: " + giaFormat + " đ");
+        }
+        
         holder.tvKhoSPQuanLy.setText("Kho: " + sanPham.getSoLuong());
 
         loadHinhAnhSanPham(context, sanPham.getHinhAnh(), holder.imgQuanLySP);
@@ -222,7 +232,7 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgQuanLySP;
-        TextView tvTenSPQuanLy, tvGiaSPQuanLy, tvKhoSPQuanLy;
+        TextView tvTenSPQuanLy, tvGiaSPQuanLy, tvKhoSPQuanLy, tvBadgeGiamGiaQuanLy;
         Button btnSuaSPQuanLy, btnXoaSPQuanLy;
 
         public ViewHolder(@NonNull View itemView) {
@@ -231,6 +241,7 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
             tvTenSPQuanLy = itemView.findViewById(R.id.tvTenSPQuanLy);
             tvGiaSPQuanLy = itemView.findViewById(R.id.tvGiaSPQuanLy);
             tvKhoSPQuanLy = itemView.findViewById(R.id.tvKhoSPQuanLy);
+            tvBadgeGiamGiaQuanLy = itemView.findViewById(R.id.tvBadgeGiamGiaQuanLy);
             btnSuaSPQuanLy = itemView.findViewById(R.id.btnSuaSPQuanLy);
             btnXoaSPQuanLy = itemView.findViewById(R.id.btnXoaSPQuanLy);
         }

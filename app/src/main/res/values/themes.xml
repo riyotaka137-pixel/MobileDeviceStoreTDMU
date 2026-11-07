@@ -2,10 +2,12 @@
     <!-- Base application theme. (Forced Light Theme for consistent E-commerce UI) -->
     <style name="Base.Theme.MobileDeviceStoreTDMU" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize Status Bar and Navigation Bar -->
-        <item name="android:statusBarColor">@color/bg_white</item>
+        <item name="android:statusBarColor">@color/primary_yellow</item>
         <item name="android:windowLightStatusBar">true</item>
-        <item name="android:navigationBarColor">@color/bg_white</item>
+
+        <item name="android:navigationBarColor">@color/primary_yellow</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">true</item>
+        <item name="fontFamily">@font/nunito</item>
     </style>
 
     <style name="Theme.MobileDeviceStoreTDMU" parent="Base.Theme.MobileDeviceStoreTDMU" />
