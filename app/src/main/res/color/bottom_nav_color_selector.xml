@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:color="#111111" />
-    <item android:color="#8E8E93" />
+    <!-- Trang thai Duoc chon (click vào): Mau Den -->
+    <item android:state_checked="true" android:color="@color/primary_black" />
+    <!-- Trang thai Chua chon (chưa click): Mau Trang -->
+    <item android:color="@color/white" />
 </selector>

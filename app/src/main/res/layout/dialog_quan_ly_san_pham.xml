@@ -53,7 +53,19 @@
             android:id="@+id/edtGiaSPDialog"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:hint="Giá bán (VNĐ) *"
+            android:hint="Giá bán gốc (VNĐ) *"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
+            android:inputType="number"
+            android:background="@drawable/bg_edittext_modern"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/edtPhanTramGiamDialog"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:hint="Phần trăm giảm giá (%)"
             android:textColorHint="@color/text_hint"
             android:textColor="@color/text_primary"
             android:inputType="number"

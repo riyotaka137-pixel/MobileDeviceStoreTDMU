@@ -9,11 +9,12 @@ public class SanPham {
     private String MoTa;
     private String HinhAnh;
     private String ThuongHieu;
+    private int PhanTramGiam;
 
     public SanPham() {
     }
 
-    public SanPham(int maSP, String tenSP, int maDanhMuc, int gia, int soLuong, String moTa, String hinhAnh, String thuongHieu) {
+    public SanPham(int maSP, String tenSP, int maDanhMuc, int gia, int soLuong, String moTa, String hinhAnh, String thuongHieu, int phanTramGiam) {
         MaSP = maSP;
         TenSP = tenSP;
         MaDanhMuc = maDanhMuc;
@@ -22,6 +23,7 @@ public class SanPham {
         MoTa = moTa;
         HinhAnh = hinhAnh;
         ThuongHieu = thuongHieu;
+        PhanTramGiam = phanTramGiam;
     }
 
     public int getMaSP() { return MaSP; }
@@ -47,4 +49,14 @@ public class SanPham {
 
     public String getThuongHieu() { return ThuongHieu; }
     public void setThuongHieu(String thuongHieu) { ThuongHieu = thuongHieu; }
+
+    public int getPhanTramGiam() { return PhanTramGiam; }
+    public void setPhanTramGiam(int phanTramGiam) { PhanTramGiam = phanTramGiam; }
+
+    public int getGiaKhuyenMai() {
+        if (PhanTramGiam > 0 && PhanTramGiam <= 100) {
+            return (int) (Gia - (Gia * (PhanTramGiam / 100.0f)));
+        }
+        return Gia;
+    }
 }

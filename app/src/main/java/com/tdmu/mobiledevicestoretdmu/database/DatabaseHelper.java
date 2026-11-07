@@ -25,7 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Tên cơ sở dữ liệu và phiên bản Production
     private static final String DATABASE_NAME = "BanThietBiTDMU.db";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 10;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -62,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "MoTa TEXT, " +
                 "HinhAnh TEXT, " +
                 "ThuongHieu TEXT, " +
+                "PhanTramGiam INTEGER DEFAULT 0, " +
                 "FOREIGN KEY(MaDanhMuc) REFERENCES DanhMuc(MaDanhMuc))";
         db.execSQL(createTableSanPham);
 
@@ -109,6 +110,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(MaSP) REFERENCES SanPham(MaSP))";
         db.execSQL(createTableChiTietDonHang);
 
+        // 8. Tạo bảng ThongBao
+        String createTableThongBao = "CREATE TABLE ThongBao (" +
+                "MaTB INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "MaTK INTEGER, " +
+                "TieuDe TEXT NOT NULL, " +
+                "NoiDung TEXT, " +
+                "NgayTao TEXT, " +
+                "TrangThai INTEGER DEFAULT 0, " +
+                "FOREIGN KEY(MaTK) REFERENCES TaiKhoan(MaTK))";
+        db.execSQL(createTableThongBao);
+
+        // 9. Tạo bảng GiamGia
+        String createTableGiamGia = "CREATE TABLE GiamGia (" +
+                "MaGG INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "MaCode TEXT NOT NULL UNIQUE, " +
+                "PhanTramGiam INTEGER, " +
+                "TienGiamToiDa INTEGER, " +
+                "DonToiThieu INTEGER, " +
+                "NgayHetHan TEXT, " +
+                "MoTa TEXT)";
+        db.execSQL(createTableGiamGia);
+
         // --- KHỞI TẠO SẴN TÀI KHOẢN HỆ THỐNG ---
         // 1. Tài khoản Admin mặc định
         String insertAdmin = "INSERT INTO TaiKhoan (HoTen, Email, MatKhau, Quyen, TrangThai) " +
@@ -130,6 +153,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS SanPham");
         db.execSQL("DROP TABLE IF EXISTS DanhMuc");
         db.execSQL("DROP TABLE IF EXISTS TaiKhoan");
+        db.execSQL("DROP TABLE IF EXISTS ThongBao");
+        db.execSQL("DROP TABLE IF EXISTS GiamGia");
 
         onCreate(db);
     }

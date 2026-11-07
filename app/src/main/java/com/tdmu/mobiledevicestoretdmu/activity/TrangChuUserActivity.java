@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.tdmu.mobiledevicestoretdmu.R;
 import com.tdmu.mobiledevicestoretdmu.fragment.UserCartFragment;
+import com.tdmu.mobiledevicestoretdmu.fragment.UserDiscountsFragment;
 import com.tdmu.mobiledevicestoretdmu.fragment.UserHomeFragment;
+import com.tdmu.mobiledevicestoretdmu.fragment.UserNotificationsFragment;
 import com.tdmu.mobiledevicestoretdmu.fragment.UserProfileFragment;
 
 public class TrangChuUserActivity extends AppCompatActivity {
@@ -32,6 +34,10 @@ public class TrangChuUserActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_home) {
                 return loadFragment(new UserHomeFragment());
+            } else if (itemId == R.id.nav_discount) {
+                return loadFragment(new UserDiscountsFragment());
+            } else if (itemId == R.id.nav_notification) {
+                return loadFragment(new UserNotificationsFragment());
             } else if (itemId == R.id.nav_cart) {
                 return loadFragment(new UserCartFragment());
             } else if (itemId == R.id.nav_profile) {

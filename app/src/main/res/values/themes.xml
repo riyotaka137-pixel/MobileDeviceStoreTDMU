@@ -1,9 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.MobileDeviceStoreTDMU" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Base application theme. (Forced Light Theme for consistent E-commerce UI) -->
+    <style name="Base.Theme.MobileDeviceStoreTDMU" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize Status Bar and Navigation Bar -->
+        <item name="android:statusBarColor">@color/bg_white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/bg_white</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="O_MR1">true</item>
     </style>
 
     <style name="Theme.MobileDeviceStoreTDMU" parent="Base.Theme.MobileDeviceStoreTDMU" />
+
+    <style name="ShapeAppearanceOverlay.FAB.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <!-- Hieu ung Pill Vang cho Bottom Navigation -->
+    <style name="CustomActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <!-- Đặt trong suốt để không bị cái nền pill chèn lên màu -->
+        <item name="android:color">@android:color/transparent</item>
+    </style>
 </resources>
