@@ -69,6 +69,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Địa chỉ Email"
                         android:layout_marginBottom="16dp"
+                        app:hintTextColor="@color/text_primary"
+                        app:placeholderTextColor="@color/text_primary"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +78,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:enabled="false"
-                            android:textColor="@color/text_secondary"
+                            android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_secondary"
                             android:inputType="textEmailAddress" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -87,6 +90,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Họ và tên *"
                         android:layout_marginBottom="16dp"
+                        app:hintTextColor="@color/text_primary"
+                        app:placeholderTextColor="@color/text_primary"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -95,6 +100,7 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_secondary"
                             android:inputType="textPersonName" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -105,6 +111,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Số điện thoại nhận hàng"
                         android:layout_marginBottom="16dp"
+                        app:hintTextColor="@color/text_primary"
+                        app:placeholderTextColor="@color/text_primary"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -113,6 +121,7 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_secondary"
                             android:inputType="phone" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -123,6 +132,8 @@
                         android:layout_height="wrap_content"
                         android:hint="Địa chỉ nhận hàng mặc định"
                         android:layout_marginBottom="24dp"
+                        app:hintTextColor="@color/text_primary"
+                        app:placeholderTextColor="@color/text_primary"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -131,6 +142,7 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:textColor="@color/text_primary"
+                            android:textColorHint="@color/text_secondary"
                             android:inputType="textMultiLine"
                             android:minLines="2" />
 

@@ -18,24 +18,17 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="MENU QUẢN LÝ HỆ THỐNG"
-                android:fontFamily="@font/nunito"
-                android:textColor="@color/text_primary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="24dp" />
-
+            <!-- Title: DANH MỤC CHỨC NĂNG QUẢN LÝ canh giữa -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="DANH MỤC CHỨC NĂNG QUẢN LÝ"
-                android:textSize="16sp"
+                android:gravity="center"
+                android:fontFamily="@font/nunito"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="24dp" />
 
             <!-- Card 1: Quan ly Danh muc -->
             <com.google.android.material.card.MaterialCardView
@@ -76,7 +69,85 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 2: Quan ly San pham -->
+            <!-- Card 2: Quan ly Thuong hieu -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardQuanLyThuongHieu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/primary_black"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QUẢN LÝ THƯƠNG HIỆU"
+                        android:textColor="@color/primary_yellow"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thêm, sửa, xóa các thương hiệu sản phẩm"
+                        android:textColor="@color/bg_white"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 3: Quan ly Banner Slider -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardQuanLyBanner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/primary_black"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QUẢN LÝ BANNER SLIDER"
+                        android:textColor="@color/primary_yellow"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quản lý ảnh slide quảng cáo và chương trình khuyến mãi"
+                        android:textColor="@color/bg_white"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 4: Quan ly San pham -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardQuanLySanPham"
                 android:layout_width="match_parent"
@@ -115,7 +186,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 3: Quan ly Don hang -->
+            <!-- Card 5: Quan ly Don hang -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardQuanLyDonHang"
                 android:layout_width="match_parent"
@@ -154,7 +225,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Card 4: Quan ly Tai khoan -->
+            <!-- Card 6: Quan ly Tai khoan -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardQuanLyTaiKhoan"
                 android:layout_width="match_parent"

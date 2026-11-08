@@ -64,6 +64,13 @@ public class TrangChuUserActivity extends AppCompatActivity {
         }
     }
 
+    // Chuyển sang Tab Khuyến mãi khi bấm vào Banner (không cần trang trung gian)
+    public void chuyenTabKhuyenMai() {
+        if (bottomNavigationViewUser != null) {
+            bottomNavigationViewUser.setSelectedItemId(R.id.nav_discount);
+        }
+    }
+
     public View getCartNavItemView() {
         return bottomNavigationViewUser != null ? bottomNavigationViewUser.findViewById(R.id.nav_cart) : null;
     }

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvTieuDeDialogTH"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="THÔNG TIN THƯƠNG HIỆU"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/edtTenTHDialog"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Tên thương hiệu *"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
+            android:inputType="textPersonName"
+            android:background="@drawable/bg_edittext_modern"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="12dp" />
+
+        <EditText
+            android:id="@+id/edtMoTaTHDialog"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:hint="Mô tả thương hiệu"
+            android:textColorHint="@color/text_hint"
+            android:textColor="@color/text_primary"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:padding="12dp"
+            android:background="@drawable/bg_edittext_modern"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hình ảnh thương hiệu"
+            android:textColor="@color/text_primary"
+            android:textSize="13sp"
+            android:layout_marginBottom="6dp" />
+
+        <!-- Khung xem trước cắt lấp đầy ảnh (centerCrop) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/stroke_light">
+
+            <ImageView
+                android:id="@+id/imgPreviewDialogTH"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo"
+                android:contentDescription="Xem trước ảnh thương hiệu" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/btnChonAnhDialogTH"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="CHỌN ẢNH TỪ THƯ VIỆN"
+            android:textColor="@color/text_primary"
+            android:backgroundTint="@color/primary_yellow"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:layout_marginBottom="24dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnHuyDialogTH"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="HỦY"
+                android:backgroundTint="@color/text_secondary"
+                android:textColor="@color/bg_white"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnLuuDialogTH"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="LƯU"
+                android:backgroundTint="@color/primary_black"
+                android:textColor="@color/bg_white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

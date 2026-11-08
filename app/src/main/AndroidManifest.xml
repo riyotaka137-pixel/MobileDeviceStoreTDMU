@@ -76,6 +76,14 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".activity.QuanLyThuongHieuActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.QuanLyBannerActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".activity.QuanLySanPhamActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -85,6 +93,10 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.QuanLyTaiKhoanActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activity.KhuyenMaiActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 

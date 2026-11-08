@@ -27,6 +27,7 @@ import com.tdmu.mobiledevicestoretdmu.adapter.QuanLySanPhamAdapter;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 import com.tdmu.mobiledevicestoretdmu.model.DanhMuc;
 import com.tdmu.mobiledevicestoretdmu.model.SanPham;
+import com.tdmu.mobiledevicestoretdmu.model.ThuongHieu;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -167,10 +168,10 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
         TextView tvTieuDeDialogSP = dialogView.findViewById(R.id.tvTieuDeDialogSP);
         EditText edtTenSPDialog = dialogView.findViewById(R.id.edtTenSPDialog);
         Spinner spnDanhMucDialog = dialogView.findViewById(R.id.spnDanhMucDialog);
+        Spinner spnThuongHieuDialog = dialogView.findViewById(R.id.spnThuongHieuDialog);
         EditText edtGiaSPDialog = dialogView.findViewById(R.id.edtGiaSPDialog);
         EditText edtPhanTramGiamDialog = dialogView.findViewById(R.id.edtPhanTramGiamDialog);
         EditText edtSoLuongSPDialog = dialogView.findViewById(R.id.edtSoLuongSPDialog);
-        EditText edtThuongHieuSPDialog = dialogView.findViewById(R.id.edtThuongHieuSPDialog);
         ImageView imgPreviewDialogSP = dialogView.findViewById(R.id.imgPreviewDialogSP);
         Button btnChonAnhDialogSP = dialogView.findViewById(R.id.btnChonAnhDialogSP);
         EditText edtMoTaSPDialog = dialogView.findViewById(R.id.edtMoTaSPDialog);
@@ -182,9 +183,14 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
         pathImageSelected = "";
 
         List<DanhMuc> listDanhMuc = databaseHelper.getAllDanhMuc();
-        ArrayAdapter<DanhMuc> adapterSpinner = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listDanhMuc);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnDanhMucDialog.setAdapter(adapterSpinner);
+        ArrayAdapter<DanhMuc> adapterSpinnerDM = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listDanhMuc);
+        adapterSpinnerDM.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDanhMucDialog.setAdapter(adapterSpinnerDM);
+
+        List<ThuongHieu> listThuongHieu = databaseHelper.getAllThuongHieu();
+        ArrayAdapter<ThuongHieu> adapterSpinnerTH = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listThuongHieu);
+        adapterSpinnerTH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnThuongHieuDialog.setAdapter(adapterSpinnerTH);
 
         btnChonAnhDialogSP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,21 +213,23 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                 String giaStr = edtGiaSPDialog.getText().toString().trim();
                 String phanTramGiamStr = edtPhanTramGiamDialog.getText().toString().trim();
                 String soLuongStr = edtSoLuongSPDialog.getText().toString().trim();
-                String thuongHieu = edtThuongHieuSPDialog.getText().toString().trim();
+
+                DanhMuc dmSelected = (DanhMuc) spnDanhMucDialog.getSelectedItem();
+                ThuongHieu thSelected = (ThuongHieu) spnThuongHieuDialog.getSelectedItem();
+
+                String thuongHieu = thSelected != null ? thSelected.getTenThuongHieu() : "";
                 String hinhAnh = pathImageSelected;
                 String moTa = edtMoTaSPDialog.getText().toString().trim();
 
-                DanhMuc dmSelected = (DanhMuc) spnDanhMucDialog.getSelectedItem();
-
-                if (tenSP.isEmpty() || giaStr.isEmpty() || soLuongStr.isEmpty() || dmSelected == null) {
-                    Toast.makeText(QuanLySanPhamActivity.this, "Vui lòng nhập đầy đủ các trường bắt buộc (*)", Toast.LENGTH_SHORT).show();
+                if (tenSP.isEmpty() || giaStr.isEmpty() || soLuongStr.isEmpty() || dmSelected == null || thSelected == null) {
+                    Toast.makeText(QuanLySanPhamActivity.this, "Vui lòng nhập/chọn đầy đủ các trường bắt buộc (*)", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 int gia = Integer.parseInt(giaStr);
                 int soLuong = Integer.parseInt(soLuongStr);
                 int phanTramGiam = phanTramGiamStr.isEmpty() ? 0 : Integer.parseInt(phanTramGiamStr);
-                
+
                 if (phanTramGiam < 0 || phanTramGiam > 100) {
                     Toast.makeText(QuanLySanPhamActivity.this, "Phần trăm giảm giá phải từ 0 đến 100", Toast.LENGTH_SHORT).show();
                     return;

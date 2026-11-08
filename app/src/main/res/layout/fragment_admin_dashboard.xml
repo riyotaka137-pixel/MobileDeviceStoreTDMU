@@ -18,10 +18,12 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Title: XIN CHÀO ADMIN canh giữa -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TRANG CHỦ DASHBOARD"
+                android:text="XIN CHÀO ADMIN"
+                android:gravity="center"
                 android:fontFamily="@font/nunito"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp"
@@ -37,7 +39,7 @@
                 android:textColor="@color/text_primary"
                 android:layout_marginBottom="16dp" />
 
-            <!-- Overview Cards Container (Horizontal Grid) -->
+            <!-- Overview Cards Container -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -157,7 +159,7 @@
 
             </LinearLayout>
 
-            <!-- Chart 1: Doanh thu 7 ngay qua -->
+            <!-- Chart 1: Doanh thu voi Tieu de nàm TREN va CANH GIUA cac nut Tuần/Tháng/Năm -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,17 +173,61 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:gravity="center_horizontal"
                     android:background="@color/bg_white"
                     android:padding="20dp">
 
+                    <!-- Title Chữ hiển thị Doanh Thu nằm TRÊN và CANH GIỮA -->
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvTitleDoanhThu"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Biểu đồ doanh thu 7 ngày qua"
+                        android:text="Doanh thu (7 ngày)"
+                        android:gravity="center"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Các nút lựa chọn Tuần / Tháng / Năm NẮM BÊN DƯỚI tiêu đề -->
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggleGroupDoanhThu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="16dp"
+                        app:singleSelection="true"
+                        app:selectionRequired="true"
+                        app:checkedButton="@id/btnDoanhThuTuan">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnDoanhThuTuan"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:paddingHorizontal="12dp"
+                            android:text="Tuần"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnDoanhThuThang"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:paddingHorizontal="12dp"
+                            android:text="Tháng"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnDoanhThuNam"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:paddingHorizontal="12dp"
+                            android:text="Năm"
+                            android:textSize="12sp" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChartDoanhThu"

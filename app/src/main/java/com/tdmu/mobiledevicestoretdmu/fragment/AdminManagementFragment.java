@@ -12,14 +12,16 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.card.MaterialCardView;
 import com.tdmu.mobiledevicestoretdmu.R;
+import com.tdmu.mobiledevicestoretdmu.activity.QuanLyBannerActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.QuanLyDanhMucActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.QuanLyDonHangActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.QuanLySanPhamActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.QuanLyTaiKhoanActivity;
+import com.tdmu.mobiledevicestoretdmu.activity.QuanLyThuongHieuActivity;
 
 public class AdminManagementFragment extends Fragment {
 
-    private MaterialCardView cardQuanLyDanhMuc, cardQuanLySanPham, cardQuanLyDonHang, cardQuanLyTaiKhoan;
+    private MaterialCardView cardQuanLyDanhMuc, cardQuanLyThuongHieu, cardQuanLyBanner, cardQuanLySanPham, cardQuanLyDonHang, cardQuanLyTaiKhoan;
 
     @Nullable
     @Override
@@ -27,12 +29,24 @@ public class AdminManagementFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_admin_management, container, false);
 
         cardQuanLyDanhMuc = view.findViewById(R.id.cardQuanLyDanhMuc);
+        cardQuanLyThuongHieu = view.findViewById(R.id.cardQuanLyThuongHieu);
+        cardQuanLyBanner = view.findViewById(R.id.cardQuanLyBanner);
         cardQuanLySanPham = view.findViewById(R.id.cardQuanLySanPham);
         cardQuanLyDonHang = view.findViewById(R.id.cardQuanLyDonHang);
         cardQuanLyTaiKhoan = view.findViewById(R.id.cardQuanLyTaiKhoan);
 
         cardQuanLyDanhMuc.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), QuanLyDanhMucActivity.class);
+            startActivity(intent);
+        });
+
+        cardQuanLyThuongHieu.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), QuanLyThuongHieuActivity.class);
+            startActivity(intent);
+        });
+
+        cardQuanLyBanner.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), QuanLyBannerActivity.class);
             startActivity(intent);
         });
 

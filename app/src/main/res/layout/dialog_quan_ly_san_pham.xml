@@ -49,6 +49,22 @@
             android:paddingHorizontal="12dp"
             android:layout_marginBottom="16dp" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thương hiệu sản phẩm *"
+            android:textColor="@color/text_primary"
+            android:textSize="14sp"
+            android:layout_marginBottom="8dp" />
+
+        <Spinner
+            android:id="@+id/spnThuongHieuDialog"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_edittext_modern"
+            android:paddingHorizontal="12dp"
+            android:layout_marginBottom="16dp" />
+
         <EditText
             android:id="@+id/edtGiaSPDialog"
             android:layout_width="match_parent"
@@ -81,18 +97,6 @@
             android:textColorHint="@color/text_hint"
             android:textColor="@color/text_primary"
             android:inputType="number"
-            android:background="@drawable/bg_edittext_modern"
-            android:paddingHorizontal="20dp"
-            android:layout_marginBottom="16dp" />
-
-        <EditText
-            android:id="@+id/edtThuongHieuSPDialog"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:hint="Thương hiệu"
-            android:textColorHint="@color/text_hint"
-            android:textColor="@color/text_primary"
-            android:inputType="text"
             android:background="@drawable/bg_edittext_modern"
             android:paddingHorizontal="20dp"
             android:layout_marginBottom="16dp" />

@@ -37,7 +37,11 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DanhMuc danhMuc = listDanhMuc.get(position);
+
         holder.tvTenDanhMuc.setText(danhMuc.getTenDanhMuc());
+
+        // Load ảnh danh mục (hỗ trợ ảnh chọn từ gallery admin hoặc tên drawable)
+        QuanLyDanhMucAdapter.loadHinhAnhCategory(context, danhMuc.getHinhAnh(), holder.imgLogoDanhMuc);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="20dp">
 
                 <EditText
                     android:id="@+id/edtTimKiem"
@@ -93,6 +93,13 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
+            <!-- Banner Slider Slider tự động cuộn sau 3 giây -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpBannerSlider"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginBottom="24dp" />
 
             <TextView
                 android:layout_width="match_parent"

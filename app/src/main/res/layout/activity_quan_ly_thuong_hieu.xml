@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.QuanLyThuongHieuActivity">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/layoutHeaderQuanLyThuongHieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_white"
+        android:elevation="1dp"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/btnBackHeader"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="4dp"
+            app:tint="@color/text_primary"
+            android:contentDescription="Quay lại"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="QUẢN LÝ THƯƠNG HIỆU"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEmptyQuanLyThuongHieu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutHeaderQuanLyThuongHieu"
+        android:text="Chưa có thương hiệu nào!"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvQuanLyThuongHieu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layoutHeaderQuanLyThuongHieu"
+        android:clipToPadding="false"
+        android:padding="12dp"
+        android:paddingBottom="80dp" />
+
+    <!-- Nút bo tròn chứa dấu + ở GÓC DƯỚI BÊN TRÁI -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnThemThuongHieu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primary_yellow"
+        app:tint="@color/text_primary"
+        app:fabSize="normal"
+        android:contentDescription="Thêm thương hiệu mới" />
+
+</RelativeLayout>

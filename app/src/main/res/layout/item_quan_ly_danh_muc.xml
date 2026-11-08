@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -7,20 +8,21 @@
     android:layout_marginTop="16dp"
     android:background="@drawable/bg_card_modern"
     android:elevation="0dp"
-    android:padding="20dp">
+    android:padding="16dp">
 
-    <!-- Hang tren: Ten & Mo ta o ben trai, Logo o GOC PHAI TREN CUNG -->
+    <!-- Hàng trên: Tên & Mô tả bên trái, Ảnh Danh Mục cắt lấp đầy khung bo tròn nằm bên PHẢI song song -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="top">
+        android:gravity="center_vertical">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingEnd="12dp">
 
             <TextView
                 android:id="@+id/tvTenDanhMucQuanLy"
@@ -35,21 +37,31 @@
                 android:id="@+id/tvMoTaDanhMucQuanLy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="6dp"
                 android:text="Mô tả danh mục..."
                 android:textColor="@color/text_secondary"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgLogoDanhMuc"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/logo"
-            android:scaleType="fitCenter"
-            android:contentDescription="Logo Danh Mục" />
+        <!-- Khung chứa ảnh bo tròn, tự động cắt ảnh (centerCrop) lấp đầy 100% diện tích -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/stroke_light">
+
+            <ImageView
+                android:id="@+id/imgLogoDanhMuc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo"
+                android:contentDescription="Ảnh Danh Mục" />
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
@@ -57,8 +69,8 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/stroke_light"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="12dp" />
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

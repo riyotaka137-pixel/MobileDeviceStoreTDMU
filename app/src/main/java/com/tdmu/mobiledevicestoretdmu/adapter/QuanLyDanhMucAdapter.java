@@ -3,12 +3,14 @@ package com.tdmu.mobiledevicestoretdmu.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.tdmu.mobiledevicestoretdmu.activity.QuanLyDanhMucActivity;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 import com.tdmu.mobiledevicestoretdmu.model.DanhMuc;
 
+import java.io.File;
 import java.util.List;
 
 public class QuanLyDanhMucAdapter extends RecyclerView.Adapter<QuanLyDanhMucAdapter.ViewHolder> {
@@ -47,6 +50,8 @@ public class QuanLyDanhMucAdapter extends RecyclerView.Adapter<QuanLyDanhMucAdap
 
         holder.tvTenDanhMucQuanLy.setText(danhMuc.getTenDanhMuc());
         holder.tvMoTaDanhMucQuanLy.setText(danhMuc.getMoTa() != null && !danhMuc.getMoTa().isEmpty() ? danhMuc.getMoTa() : "Chưa có mô tả");
+
+        loadHinhAnhCategory(context, danhMuc.getHinhAnh(), holder.imgLogoDanhMuc);
 
         holder.btnSuaDanhMuc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,50 +88,90 @@ public class QuanLyDanhMucAdapter extends RecyclerView.Adapter<QuanLyDanhMucAdap
 
     private void hienDialogSuaDanhMuc(DanhMuc danhMuc) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("SỬA DANH MỤC");
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_quan_ly_danh_muc, null);
+        builder.setView(dialogView);
 
-        LinearLayout container = new LinearLayout(context);
-        container.setOrientation(LinearLayout.VERTICAL);
-        container.setPadding(40, 20, 40, 20);
+        AlertDialog dialog = builder.create();
 
-        final EditText edtTenDM = new EditText(context);
-        edtTenDM.setHint("Tên danh mục");
-        edtTenDM.setText(danhMuc.getTenDanhMuc());
+        TextView tvTieuDeDialogDM = dialogView.findViewById(R.id.tvTieuDeDialogDM);
+        EditText edtTenDMDialog = dialogView.findViewById(R.id.edtTenDMDialog);
+        EditText edtMoTaDMDialog = dialogView.findViewById(R.id.edtMoTaDMDialog);
+        ImageView imgPreviewDialogDM = dialogView.findViewById(R.id.imgPreviewDialogDM);
+        Button btnChonAnhDialogDM = dialogView.findViewById(R.id.btnChonAnhDialogDM);
 
-        final EditText edtMoTaDM = new EditText(context);
-        edtMoTaDM.setHint("Mô tả");
-        edtMoTaDM.setText(danhMuc.getMoTa());
+        Button btnHuyDialogDM = dialogView.findViewById(R.id.btnHuyDialogDM);
+        Button btnLuuDialogDM = dialogView.findViewById(R.id.btnLuuDialogDM);
 
-        container.addView(edtTenDM);
-        container.addView(edtMoTaDM);
+        tvTieuDeDialogDM.setText("SỬA DANH MỤC");
+        edtTenDMDialog.setText(danhMuc.getTenDanhMuc());
+        edtMoTaDMDialog.setText(danhMuc.getMoTa());
 
-        builder.setView(container);
+        loadHinhAnhCategory(context, danhMuc.getHinhAnh(), imgPreviewDialogDM);
 
-        builder.setPositiveButton("LƯU", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String tenMoi = edtTenDM.getText().toString().trim();
-                String moTaMoi = edtMoTaDM.getText().toString().trim();
+        if (context instanceof QuanLyDanhMucActivity) {
+            ((QuanLyDanhMucActivity) context).moGalleryChonAnhCategory(null, danhMuc.getHinhAnh());
+        }
 
-                if (tenMoi.isEmpty()) {
-                    Toast.makeText(context, "Tên danh mục không được để trống!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                boolean updated = databaseHelper.updateDanhMuc(danhMuc.getMaDanhMuc(), tenMoi, moTaMoi);
-                if (updated) {
-                    Toast.makeText(context, "Cập nhật danh mục thành công!", Toast.LENGTH_SHORT).show();
-                    if (context instanceof QuanLyDanhMucActivity) {
-                        ((QuanLyDanhMucActivity) context).taiDanhSachDanhMuc();
-                    }
-                } else {
-                    Toast.makeText(context, "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
-                }
+        btnChonAnhDialogDM.setOnClickListener(v -> {
+            if (context instanceof QuanLyDanhMucActivity) {
+                ((QuanLyDanhMucActivity) context).moGalleryChonAnhCategory(imgPreviewDialogDM, danhMuc.getHinhAnh());
             }
         });
 
-        builder.setNegativeButton("HỦY", null);
-        builder.show();
+        btnHuyDialogDM.setOnClickListener(v -> dialog.dismiss());
+
+        btnLuuDialogDM.setOnClickListener(v -> {
+            String tenMoi = edtTenDMDialog.getText().toString().trim();
+            String moTaMoi = edtMoTaDMDialog.getText().toString().trim();
+            String hinhAnhMoi = danhMuc.getHinhAnh();
+
+            if (context instanceof QuanLyDanhMucActivity) {
+                String selectedPath = ((QuanLyDanhMucActivity) context).getPathImageSelected();
+                if (selectedPath != null && !selectedPath.isEmpty()) {
+                    hinhAnhMoi = selectedPath;
+                }
+            }
+
+            if (tenMoi.isEmpty()) {
+                Toast.makeText(context, "Tên danh mục không được để trống!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            boolean updated = databaseHelper.updateDanhMuc(danhMuc.getMaDanhMuc(), tenMoi, moTaMoi, hinhAnhMoi);
+            if (updated) {
+                Toast.makeText(context, "Cập nhật danh mục thành công!", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                if (context instanceof QuanLyDanhMucActivity) {
+                    ((QuanLyDanhMucActivity) context).taiDanhSachDanhMuc();
+                }
+            } else {
+                Toast.makeText(context, "Cập nhật thất bại!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
+    }
+
+    public static void loadHinhAnhCategory(Context context, String hinhAnh, ImageView imageView) {
+        if (imageView == null) return;
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        if (hinhAnh != null && !hinhAnh.trim().isEmpty()) {
+            File file = new File(hinhAnh);
+            if (file.exists()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
+                    return;
+                }
+            }
+            int imageResId = context.getResources().getIdentifier(hinhAnh, "drawable", context.getPackageName());
+            if (imageResId != 0) {
+                imageView.setImageResource(imageResId);
+                return;
+            }
+        }
+        imageView.setImageResource(R.drawable.logo);
     }
 
     @Override
@@ -136,12 +181,14 @@ public class QuanLyDanhMucAdapter extends RecyclerView.Adapter<QuanLyDanhMucAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTenDanhMucQuanLy, tvMoTaDanhMucQuanLy;
+        ImageView imgLogoDanhMuc;
         Button btnSuaDanhMuc, btnXoaDanhMuc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTenDanhMucQuanLy = itemView.findViewById(R.id.tvTenDanhMucQuanLy);
             tvMoTaDanhMucQuanLy = itemView.findViewById(R.id.tvMoTaDanhMucQuanLy);
+            imgLogoDanhMuc = itemView.findViewById(R.id.imgLogoDanhMuc);
             btnSuaDanhMuc = itemView.findViewById(R.id.btnSuaDanhMuc);
             btnXoaDanhMuc = itemView.findViewById(R.id.btnXoaDanhMuc);
         }

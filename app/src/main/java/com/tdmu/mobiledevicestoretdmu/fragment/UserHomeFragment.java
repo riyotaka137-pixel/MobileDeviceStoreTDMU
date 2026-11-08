@@ -9,11 +9,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Path;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -26,16 +27,20 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.tdmu.mobiledevicestoretdmu.R;
-import com.tdmu.mobiledevicestoretdmu.activity.TrangChuUserActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.TimKiemSanPhamActivity;
+import com.tdmu.mobiledevicestoretdmu.activity.TrangChuUserActivity;
+import com.tdmu.mobiledevicestoretdmu.adapter.BannerUserAdapter;
 import com.tdmu.mobiledevicestoretdmu.adapter.DanhMucAdapter;
 import com.tdmu.mobiledevicestoretdmu.adapter.SanPhamAdapter;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
+import com.tdmu.mobiledevicestoretdmu.model.Banner;
 import com.tdmu.mobiledevicestoretdmu.model.DanhMuc;
 import com.tdmu.mobiledevicestoretdmu.model.SanPham;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserHomeFragment extends Fragment {
@@ -43,12 +48,27 @@ public class UserHomeFragment extends Fragment {
     private TextView tvXinChaoUser;
     private EditText edtTimKiem;
     private ImageView btnGioHangHeader;
-    private Button btnTimKiem;
+    private View btnTimKiem;
+    private ViewPager2 vpBannerSlider;
     private RecyclerView rvDanhMuc, rvSanPham;
 
     private DatabaseHelper databaseHelper;
     private DanhMucAdapter danhMucAdapter;
     private SanPhamAdapter sanPhamAdapter;
+    private BannerUserAdapter bannerUserAdapter;
+
+    private final Handler bannerHandler = new Handler(Looper.getMainLooper());
+    private final Runnable bannerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (vpBannerSlider != null && bannerUserAdapter != null && bannerUserAdapter.getItemCount() > 0) {
+                int currentItem = vpBannerSlider.getCurrentItem();
+                int nextItem = (currentItem + 1) % bannerUserAdapter.getItemCount();
+                vpBannerSlider.setCurrentItem(nextItem, true);
+                bannerHandler.postDelayed(this, 3000);
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -59,12 +79,14 @@ public class UserHomeFragment extends Fragment {
         edtTimKiem = view.findViewById(R.id.edtTimKiem);
         btnGioHangHeader = view.findViewById(R.id.btnGioHangHeader);
         btnTimKiem = view.findViewById(R.id.btnTimKiem);
+        vpBannerSlider = view.findViewById(R.id.vpBannerSlider);
         rvDanhMuc = view.findViewById(R.id.rvDanhMuc);
         rvSanPham = view.findViewById(R.id.rvSanPham);
 
         databaseHelper = new DatabaseHelper(requireContext());
 
         hienThiThongTinUser();
+        taiDanhSachBanner();
         taiDanhSachDanhMuc();
         taiDanhSachSanPham();
         batSuKien();
@@ -76,7 +98,20 @@ public class UserHomeFragment extends Fragment {
         if (getContext() == null) return;
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         String hoTen = sharedPreferences.getString("HoTen", "Khách hàng");
-        tvXinChaoUser.setText("Xin chào, " + hoTen);
+        tvXinChaoUser.setText(hoTen);
+    }
+
+    private void taiDanhSachBanner() {
+        if (getContext() == null || vpBannerSlider == null) return;
+
+        List<Banner> listBanner = databaseHelper.getAllBanner();
+        if (listBanner == null || listBanner.isEmpty()) {
+            listBanner = new ArrayList<>();
+            listBanner.add(new Banner(0, "Siêu Sale Thiết Bị Công Nghệ TDMU", "logo", "Ưu đãi lớn nhất năm"));
+        }
+
+        bannerUserAdapter = new BannerUserAdapter(requireContext(), listBanner);
+        vpBannerSlider.setAdapter(bannerUserAdapter);
     }
 
     private void taiDanhSachDanhMuc() {
@@ -94,22 +129,26 @@ public class UserHomeFragment extends Fragment {
     }
 
     private void batSuKien() {
-        btnGioHangHeader.setOnClickListener(v -> {
-            if (getActivity() instanceof TrangChuUserActivity) {
-                ((TrangChuUserActivity) getActivity()).chuyenTabGioHang();
-            }
-        });
+        if (btnGioHangHeader != null) {
+            btnGioHangHeader.setOnClickListener(v -> {
+                if (getActivity() instanceof TrangChuUserActivity) {
+                    ((TrangChuUserActivity) getActivity()).chuyenTabGioHang();
+                }
+            });
+        }
 
-        btnTimKiem.setOnClickListener(v -> {
-            String tuKhoa = edtTimKiem.getText().toString().trim();
-            if (!tuKhoa.isEmpty()) {
-                Intent intent = new Intent(requireContext(), TimKiemSanPhamActivity.class);
-                intent.putExtra("TuKhoa", tuKhoa);
-                startActivity(intent);
-            } else {
-                Toast.makeText(requireContext(), "Vui lòng nhập từ khóa tìm kiếm!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (btnTimKiem != null) {
+            btnTimKiem.setOnClickListener(v -> {
+                String tuKhoa = edtTimKiem.getText().toString().trim();
+                if (!tuKhoa.isEmpty()) {
+                    Intent intent = new Intent(requireContext(), TimKiemSanPhamActivity.class);
+                    intent.putExtra("TuKhoa", tuKhoa);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(requireContext(), "Vui lòng nhập từ khóa tìm kiếm!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     /**
@@ -187,6 +226,18 @@ public class UserHomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         hienThiThongTinUser();
+        taiDanhSachBanner();
         taiDanhSachSanPham();
+
+        // Kích hoạt tự động cuộn Banner sau khoảng 3 giây (3000ms)
+        bannerHandler.removeCallbacks(bannerRunnable);
+        bannerHandler.postDelayed(bannerRunnable, 3000);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        // Tạm dừng tự động cuộn Banner khi ẩn màn hình để tiết kiệm pin/RAM
+        bannerHandler.removeCallbacks(bannerRunnable);
     }
 }

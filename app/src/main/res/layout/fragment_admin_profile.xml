@@ -18,10 +18,12 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Title: TÀI KHOẢN ADMIN canh giữa -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TÀI KHOẢN ADMIN"
+                android:gravity="center"
                 android:fontFamily="@font/nunito"
                 android:textColor="@color/text_primary"
                 android:textSize="18sp"

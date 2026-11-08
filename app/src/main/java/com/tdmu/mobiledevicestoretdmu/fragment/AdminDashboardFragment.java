@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.tdmu.mobiledevicestoretdmu.R;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 
@@ -34,10 +35,12 @@ import java.util.Map;
 
 public class AdminDashboardFragment extends Fragment {
 
-    private TextView tvTongDoanhThu, tvSoDonHangChoDuyet, tvTongSoKhachHang;
+    private TextView tvTongDoanhThu, tvSoDonHangChoDuyet, tvTongSoKhachHang, tvTitleDoanhThu;
+    private MaterialButtonToggleGroup toggleGroupDoanhThu;
     private LineChart lineChartDoanhThu;
     private PieChart pieChartDanhMuc;
     private DatabaseHelper databaseHelper;
+    private int currentChartMode = 0; // 0: Tuần, 1: Tháng, 2: Năm
 
     @Nullable
     @Override
@@ -47,11 +50,28 @@ public class AdminDashboardFragment extends Fragment {
         tvTongDoanhThu = view.findViewById(R.id.tvTongDoanhThu);
         tvSoDonHangChoDuyet = view.findViewById(R.id.tvSoDonHangChoDuyet);
         tvTongSoKhachHang = view.findViewById(R.id.tvTongSoKhachHang);
+        tvTitleDoanhThu = view.findViewById(R.id.tvTitleDoanhThu);
 
+        toggleGroupDoanhThu = view.findViewById(R.id.toggleGroupDoanhThu);
         lineChartDoanhThu = view.findViewById(R.id.lineChartDoanhThu);
         pieChartDanhMuc = view.findViewById(R.id.pieChartDanhMuc);
 
         databaseHelper = new DatabaseHelper(requireContext());
+
+        if (toggleGroupDoanhThu != null) {
+            toggleGroupDoanhThu.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+                if (isChecked) {
+                    if (checkedId == R.id.btnDoanhThuTuan) {
+                        currentChartMode = 0;
+                    } else if (checkedId == R.id.btnDoanhThuThang) {
+                        currentChartMode = 1;
+                    } else if (checkedId == R.id.btnDoanhThuNam) {
+                        currentChartMode = 2;
+                    }
+                    setupLineChart(currentChartMode);
+                }
+            });
+        }
 
         return view;
     }
@@ -69,17 +89,28 @@ public class AdminDashboardFragment extends Fragment {
             tvSoDonHangChoDuyet.setText(donChoDuyet + " đơn");
             tvTongSoKhachHang.setText(tongKhachHang + " TK");
 
-            setupLineChart();
+            setupLineChart(currentChartMode);
             setupPieChart();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void setupLineChart() {
+    private void setupLineChart(int mode) {
         if (lineChartDoanhThu == null) return;
 
-        Map<String, Long> mapDoanhThu = databaseHelper.getDoanhThu7NgayQua();
+        Map<String, Long> mapDoanhThu;
+        if (mode == 1) {
+            mapDoanhThu = databaseHelper.getDoanhThu30NgayQua();
+            if (tvTitleDoanhThu != null) tvTitleDoanhThu.setText("Doanh thu (30 ngày)");
+        } else if (mode == 2) {
+            mapDoanhThu = databaseHelper.getDoanhThu12ThangQua();
+            if (tvTitleDoanhThu != null) tvTitleDoanhThu.setText("Doanh thu (12 tháng)");
+        } else {
+            mapDoanhThu = databaseHelper.getDoanhThu7NgayQua();
+            if (tvTitleDoanhThu != null) tvTitleDoanhThu.setText("Doanh thu (7 ngày)");
+        }
+
         List<Entry> entries = new ArrayList<>();
         List<String> xLabels = new ArrayList<>();
 
@@ -92,23 +123,23 @@ public class AdminDashboardFragment extends Fragment {
 
         LineDataSet dataSet = new LineDataSet(entries, "Doanh thu (VNĐ)");
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        dataSet.setColor(Color.parseColor("#111111"));
-        dataSet.setLineWidth(3f);
-        dataSet.setCircleColor(Color.parseColor("#111111"));
-        dataSet.setCircleRadius(5f);
+        dataSet.setColor(Color.parseColor("#333333"));
+        dataSet.setLineWidth(2.5f);
+        dataSet.setCircleColor(Color.parseColor("#333333"));
+        dataSet.setCircleRadius(4f);
         dataSet.setDrawCircleHole(true);
-        dataSet.setCircleHoleRadius(2.5f);
-        dataSet.setValueTextSize(10f);
-        dataSet.setValueTextColor(Color.parseColor("#1C1C1C"));
+        dataSet.setCircleHoleRadius(2f);
+        dataSet.setValueTextSize(9f);
+        dataSet.setValueTextColor(Color.parseColor("#333333"));
         dataSet.setDrawFilled(true);
-        dataSet.setFillColor(Color.parseColor("#E0E0E0"));
+        dataSet.setFillColor(Color.parseColor("#FDB623"));
 
         LineData lineData = new LineData(dataSet);
         lineChartDoanhThu.setData(lineData);
 
         // Styling Chart UI
         lineChartDoanhThu.getDescription().setEnabled(false);
-        lineChartDoanhThu.getLegend().setEnabled(true);
+        lineChartDoanhThu.getLegend().setEnabled(false);
         lineChartDoanhThu.setTouchEnabled(true);
         lineChartDoanhThu.setPinchZoom(true);
 
@@ -123,9 +154,9 @@ public class AdminDashboardFragment extends Fragment {
 
         YAxis yAxisLeft = lineChartDoanhThu.getAxisLeft();
         yAxisLeft.setDrawGridLines(true);
-        yAxisLeft.setGridColor(Color.parseColor("#F2F2F7"));
+        yAxisLeft.setGridColor(Color.parseColor("#E5E5EA"));
 
-        lineChartDoanhThu.animateX(1000);
+        lineChartDoanhThu.animateX(800);
         lineChartDoanhThu.invalidate();
     }
 
@@ -144,13 +175,13 @@ public class AdminDashboardFragment extends Fragment {
         }
 
         PieDataSet dataSet = new PieDataSet(pieEntries, "");
-        
+
         // Dynamic Colors Palette
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.parseColor("#111111"));
+        colors.add(Color.parseColor("#FDB623"));
+        colors.add(Color.parseColor("#333333"));
         colors.add(Color.parseColor("#1A73E8"));
         colors.add(Color.parseColor("#34A853"));
-        colors.add(Color.parseColor("#FBBC05"));
         colors.add(Color.parseColor("#EA4335"));
         for (int c : ColorTemplate.MATERIAL_COLORS) colors.add(c);
         dataSet.setColors(colors);
@@ -170,11 +201,10 @@ public class AdminDashboardFragment extends Fragment {
         pieChartDanhMuc.setHoleColor(Color.WHITE);
         pieChartDanhMuc.setHoleRadius(50f);
         pieChartDanhMuc.setTransparentCircleRadius(55f);
-        // Đổi màu chữ của các label (nhãn danh mục) hiển thị ngoài biểu đồ
-        pieChartDanhMuc.setEntryLabelColor(Color.WHITE);
+        pieChartDanhMuc.setEntryLabelColor(Color.parseColor("#333333"));
         pieChartDanhMuc.setEntryLabelTextSize(11f);
 
-        pieChartDanhMuc.animateY(1400, Easing.EaseInOutQuad);
+        pieChartDanhMuc.animateY(1200, Easing.EaseInOutQuad);
         pieChartDanhMuc.invalidate();
     }
 

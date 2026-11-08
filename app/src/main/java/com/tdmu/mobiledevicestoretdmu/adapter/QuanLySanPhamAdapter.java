@@ -24,6 +24,7 @@ import com.tdmu.mobiledevicestoretdmu.activity.QuanLySanPhamActivity;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 import com.tdmu.mobiledevicestoretdmu.model.DanhMuc;
 import com.tdmu.mobiledevicestoretdmu.model.SanPham;
+import com.tdmu.mobiledevicestoretdmu.model.ThuongHieu;
 
 import java.io.File;
 import java.util.List;
@@ -56,7 +57,7 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
         if (sanPham.getPhanTramGiam() > 0) {
             holder.tvBadgeGiamGiaQuanLy.setVisibility(View.VISIBLE);
             holder.tvBadgeGiamGiaQuanLy.setText("-" + sanPham.getPhanTramGiam() + "%");
-            
+
             String giaMoiFormat = String.format("%,d", sanPham.getGiaKhuyenMai()).replace(',', '.');
             holder.tvGiaSPQuanLy.setText("Giá: " + giaMoiFormat + " đ");
         } else {
@@ -64,7 +65,7 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
             String giaFormat = String.format("%,d", sanPham.getGia()).replace(',', '.');
             holder.tvGiaSPQuanLy.setText("Giá: " + giaFormat + " đ");
         }
-        
+
         holder.tvKhoSPQuanLy.setText("Kho: " + sanPham.getSoLuong());
 
         loadHinhAnhSanPham(context, sanPham.getHinhAnh(), holder.imgQuanLySP);
@@ -112,9 +113,10 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
         TextView tvTieuDeDialogSP = dialogView.findViewById(R.id.tvTieuDeDialogSP);
         EditText edtTenSPDialog = dialogView.findViewById(R.id.edtTenSPDialog);
         Spinner spnDanhMucDialog = dialogView.findViewById(R.id.spnDanhMucDialog);
+        Spinner spnThuongHieuDialog = dialogView.findViewById(R.id.spnThuongHieuDialog);
         EditText edtGiaSPDialog = dialogView.findViewById(R.id.edtGiaSPDialog);
+        EditText edtPhanTramGiamDialog = dialogView.findViewById(R.id.edtPhanTramGiamDialog);
         EditText edtSoLuongSPDialog = dialogView.findViewById(R.id.edtSoLuongSPDialog);
-        EditText edtThuongHieuSPDialog = dialogView.findViewById(R.id.edtThuongHieuSPDialog);
         ImageView imgPreviewDialogSP = dialogView.findViewById(R.id.imgPreviewDialogSP);
         Button btnChonAnhDialogSP = dialogView.findViewById(R.id.btnChonAnhDialogSP);
         EditText edtMoTaSPDialog = dialogView.findViewById(R.id.edtMoTaSPDialog);
@@ -125,8 +127,8 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
         tvTieuDeDialogSP.setText("SỬA SẢN PHẨM");
         edtTenSPDialog.setText(sanPham.getTenSP());
         edtGiaSPDialog.setText(String.valueOf(sanPham.getGia()));
+        edtPhanTramGiamDialog.setText(String.valueOf(sanPham.getPhanTramGiam()));
         edtSoLuongSPDialog.setText(String.valueOf(sanPham.getSoLuong()));
-        edtThuongHieuSPDialog.setText(sanPham.getThuongHieu());
         edtMoTaSPDialog.setText(sanPham.getMoTa());
 
         loadHinhAnhSanPham(context, sanPham.getHinhAnh(), imgPreviewDialogSP);
@@ -144,14 +146,28 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
             }
         });
 
+        // Set up Danh mục Spinner
         List<DanhMuc> listDanhMuc = databaseHelper.getAllDanhMuc();
-        ArrayAdapter<DanhMuc> adapterSpinner = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listDanhMuc);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnDanhMucDialog.setAdapter(adapterSpinner);
+        ArrayAdapter<DanhMuc> adapterSpinnerDM = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listDanhMuc);
+        adapterSpinnerDM.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnDanhMucDialog.setAdapter(adapterSpinnerDM);
 
         for (int i = 0; i < listDanhMuc.size(); i++) {
             if (listDanhMuc.get(i).getMaDanhMuc() == sanPham.getMaDanhMuc()) {
                 spnDanhMucDialog.setSelection(i);
+                break;
+            }
+        }
+
+        // Set up Thương hiệu Spinner
+        List<ThuongHieu> listThuongHieu = databaseHelper.getAllThuongHieu();
+        ArrayAdapter<ThuongHieu> adapterSpinnerTH = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, listThuongHieu);
+        adapterSpinnerTH.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnThuongHieuDialog.setAdapter(adapterSpinnerTH);
+
+        for (int i = 0; i < listThuongHieu.size(); i++) {
+            if (listThuongHieu.get(i).getTenThuongHieu().equalsIgnoreCase(sanPham.getThuongHieu())) {
+                spnThuongHieuDialog.setSelection(i);
                 break;
             }
         }
@@ -168,10 +184,14 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
             public void onClick(View v) {
                 String tenSP = edtTenSPDialog.getText().toString().trim();
                 String giaStr = edtGiaSPDialog.getText().toString().trim();
+                String phanTramGiamStr = edtPhanTramGiamDialog.getText().toString().trim();
                 String soLuongStr = edtSoLuongSPDialog.getText().toString().trim();
-                String thuongHieu = edtThuongHieuSPDialog.getText().toString().trim();
                 String moTa = edtMoTaSPDialog.getText().toString().trim();
 
+                DanhMuc dmSelected = (DanhMuc) spnDanhMucDialog.getSelectedItem();
+                ThuongHieu thSelected = (ThuongHieu) spnThuongHieuDialog.getSelectedItem();
+
+                String thuongHieu = thSelected != null ? thSelected.getTenThuongHieu() : "";
                 String hinhAnh = sanPham.getHinhAnh();
                 if (context instanceof QuanLySanPhamActivity) {
                     String selectedPath = ((QuanLySanPhamActivity) context).getPathImageSelected();
@@ -180,17 +200,21 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
                     }
                 }
 
-                DanhMuc dmSelected = (DanhMuc) spnDanhMucDialog.getSelectedItem();
-
-                if (tenSP.isEmpty() || giaStr.isEmpty() || soLuongStr.isEmpty() || dmSelected == null) {
-                    Toast.makeText(context, "Vui lòng nhập đầy đủ các trường bắt buộc (*)", Toast.LENGTH_SHORT).show();
+                if (tenSP.isEmpty() || giaStr.isEmpty() || soLuongStr.isEmpty() || dmSelected == null || thSelected == null) {
+                    Toast.makeText(context, "Vui lòng nhập/chọn đầy đủ các trường bắt buộc (*)", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 int gia = Integer.parseInt(giaStr);
                 int soLuong = Integer.parseInt(soLuongStr);
+                int phanTramGiam = phanTramGiamStr.isEmpty() ? 0 : Integer.parseInt(phanTramGiamStr);
 
-                boolean isUpdated = databaseHelper.updateSanPham(sanPham.getMaSP(), tenSP, dmSelected.getMaDanhMuc(), gia, soLuong, moTa, thuongHieu, hinhAnh);
+                if (phanTramGiam < 0 || phanTramGiam > 100) {
+                    Toast.makeText(context, "Phần trăm giảm giá phải từ 0 đến 100", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                boolean isUpdated = databaseHelper.updateSanPham(sanPham.getMaSP(), tenSP, dmSelected.getMaDanhMuc(), gia, soLuong, moTa, thuongHieu, hinhAnh, phanTramGiam);
                 if (isUpdated) {
                     Toast.makeText(context, "Cập nhật sản phẩm thành công!", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
