@@ -18,7 +18,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.tdmu.mobiledevicestoretdmu.R;
 import com.tdmu.mobiledevicestoretdmu.activity.DangNhapActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.LichSuMuaHangActivity;
@@ -27,7 +26,7 @@ import com.tdmu.mobiledevicestoretdmu.model.TaiKhoan;
 
 public class UserProfileFragment extends Fragment {
 
-    private TextInputEditText edtEmailCaNhan, edtHoTenCaNhan, edtSoDienThoaiCaNhan, edtDiaChiCaNhan;
+    private EditText edtEmailCaNhan, edtHoTenCaNhan, edtSoDienThoaiCaNhan, edtDiaChiCaNhan;
     private Button btnCapNhatThongTin, btnMoDialogDoiMatKhau, btnXemLichSuDonHang, btnDangXuatUser;
     private ImageView btnToggleEditMode;
 

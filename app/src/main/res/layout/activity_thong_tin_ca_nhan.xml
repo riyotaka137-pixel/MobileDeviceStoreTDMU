@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Email"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/text_primary"
                 android:textSize="14sp"
                 android:layout_marginBottom="8dp" />
 
@@ -70,7 +70,7 @@
                 android:enabled="false"
                 android:background="@drawable/bg_edittext_modern"
                 android:paddingHorizontal="20dp"
-                android:textColor="@color/text_secondary"
+                android:textColor="@color/text_primary"
                 android:layout_marginBottom="16dp" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:hint="Nhập họ và tên..."
-                android:textColorHint="@color/text_hint"
+                android:textColorHint="@color/text_secondary"
                 android:textColor="@color/text_primary"
                 android:inputType="textPersonName"
                 android:background="@drawable/bg_edittext_modern"
@@ -106,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:hint="Nhập số điện thoại..."
-                android:textColorHint="@color/text_hint"
+                android:textColorHint="@color/text_secondary"
                 android:textColor="@color/text_primary"
                 android:inputType="phone"
                 android:background="@drawable/bg_edittext_modern"
@@ -126,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:hint="Nhập địa chỉ nhận hàng..."
-                android:textColorHint="@color/text_hint"
+                android:textColorHint="@color/text_secondary"
                 android:textColor="@color/text_primary"
                 android:inputType="textMultiLine"
                 android:gravity="top"
