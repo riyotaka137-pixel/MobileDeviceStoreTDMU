@@ -56,12 +56,17 @@ public class QuanLyVoucherAdapter extends RecyclerView.Adapter<QuanLyVoucherAdap
 
         String toiDaStr = gg.getTienGiamToiDa() > 0 ? " (Tối đa: " + String.format("%,d", gg.getTienGiamToiDa()).replace(',', '.') + " đ)" : "";
         holder.tvMucGiamVoucher.setText("Giảm " + gg.getPhanTramGiam() + "%" + toiDaStr);
+        holder.tvMucGiamVoucher.setTextColor(Color.parseColor("#000000"));
 
         String donToiThieuStr = gg.getDonToiThieu() > 0 ? String.format("%,d", gg.getDonToiThieu()).replace(',', '.') + " đ" : "Không yêu cầu";
         holder.tvDieuKienVoucher.setText("Đơn tối thiểu: " + donToiThieuStr);
+        holder.tvDieuKienVoucher.setTextColor(Color.parseColor("#222222"));
 
         holder.tvHSDVoucher.setText("Hạn sử dụng: " + (gg.getNgayHetHan() != null && !gg.getNgayHetHan().isEmpty() ? gg.getNgayHetHan() : "Không thời hạn"));
+        holder.tvHSDVoucher.setTextColor(Color.parseColor("#222222"));
+
         holder.tvMoTaVoucher.setText(gg.getMoTa() != null && !gg.getMoTa().isEmpty() ? gg.getMoTa() : "Không có mô tả");
+        holder.tvMoTaVoucher.setTextColor(Color.parseColor("#222222"));
 
         holder.btnSuaVoucher.setOnClickListener(v -> {
             if (listener != null) listener.onEdit(gg);

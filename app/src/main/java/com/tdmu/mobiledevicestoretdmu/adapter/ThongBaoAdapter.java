@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.tdmu.mobiledevicestoretdmu.R;
+import com.tdmu.mobiledevicestoretdmu.activity.TrangChuUserActivity;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 import com.tdmu.mobiledevicestoretdmu.model.ThongBao;
 
@@ -63,6 +64,9 @@ public class ThongBaoAdapter extends RecyclerView.Adapter<ThongBaoAdapter.ViewHo
                 tb.setTrangThai(1);
                 holder.viewUnreadDot.setVisibility(View.GONE);
                 holder.cardThongBao.setCardBackgroundColor(Color.parseColor("#EAEAEA"));
+                if (context instanceof TrangChuUserActivity) {
+                    ((TrangChuUserActivity) context).updateNotificationBadge();
+                }
             }
         });
     }

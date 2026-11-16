@@ -55,7 +55,10 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.ViewHold
             holder.tvGiaGocSanPham.setText(giaGocFormat + " đ");
             holder.tvGiaGocSanPham.setPaintFlags(holder.tvGiaGocSanPham.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
-            String giaMoiFormat = String.format("%,d", sanPham.getGiaKhuyenMai()).replace(',', '.');
+            int gia = sanPham.getGia();
+            int phanTramGiam = sanPham.getPhanTramGiam();
+            int giaSauGiam = (int) ((long) gia * (100 - phanTramGiam) / 100);
+            String giaMoiFormat = String.format("%,d", giaSauGiam).replace(',', '.');
             holder.tvGiaSanPham.setText(giaMoiFormat + " đ");
         } else {
             holder.tvBadgeGiamGia.setVisibility(View.GONE);

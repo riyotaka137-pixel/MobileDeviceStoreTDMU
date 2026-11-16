@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_card_modern"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ĐÁNH GIÁ SẢN PHẨM"
+        android:textColor="@color/primary_black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="6dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chia sẻ trải nghiệm sử dụng thực tế của bạn"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <RatingBar
+            android:id="@+id/rbDialogDanhGia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            android:rating="5"
+            android:progressTint="@color/primary_yellow"
+            android:secondaryProgressTint="@color/primary_yellow" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edtDialogNoiDungDanhGia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext_modern"
+        android:hint="Viết nhận xét của bạn về chất lượng sản phẩm..."
+        android:textColor="@color/primary_black"
+        android:textColorHint="@color/text_hint"
+        android:textSize="14sp"
+        android:padding="14dp"
+        android:minLines="3"
+        android:maxLines="6"
+        android:gravity="top|start"
+        android:layout_marginBottom="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnHuyDanhGia"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="HỦY BỎ"
+            android:background="@drawable/bg_btn_secondary"
+            android:textColor="@color/primary_black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGuiDanhGia"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="GỬI ĐÁNH GIÁ"
+            android:background="@drawable/bg_btn_primary"
+            android:textColor="@color/text_on_yellow"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

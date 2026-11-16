@@ -99,7 +99,7 @@
                     android:id="@+id/tvGiaChiTietSP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="25.000.000 đ"
+                    tools:text="0 đ"
                     android:textColor="@color/primary_black"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -109,9 +109,10 @@
                     android:id="@+id/tvGiaGocChiTietSP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="30.000.000 đ"
+                    tools:text="0 đ"
                     android:textColor="@color/text_secondary"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvBadgeChiTietSP"
@@ -123,8 +124,9 @@
                     android:textSize="14sp"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="4dp"
-                    android:text="-10%"
-                    android:layout_marginStart="12dp" />
+                    tools:text="-10%"
+                    android:layout_marginStart="12dp"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -161,6 +163,102 @@
                 android:textColor="@color/text_primary"
                 android:textSize="15sp"
                 android:lineSpacingExtra="6dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/stroke_light"
+                android:layout_marginVertical="20dp" />
+
+            <!-- PHẦN ĐÁNH GIÁ SẢN PHẨM -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ĐÁNH GIÁ SẢN PHẨM"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Khung điểm trung bình & Nút viết đánh giá -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tvDiemTrungBinhSao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_black"
+                    android:layout_marginEnd="10dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RatingBar
+                        android:id="@+id/rbTrungBinhSao"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:stepSize="0.1"
+                        android:rating="0"
+                        android:isIndicator="true"
+                        android:progressTint="@color/primary_yellow"
+                        android:secondaryProgressTint="@color/primary_yellow"
+                        android:layout_marginBottom="2dp" />
+
+                    <TextView
+                        android:id="@+id/tvSoLuotDanhGia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="(Chưa có đánh giá)"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnVietDanhGia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="VIẾT ĐÁNH GIÁ"
+                    android:background="@drawable/bg_btn_primary"
+                    android:textColor="@color/text_on_yellow"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="14dp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvChuaCoDanhGia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sản phẩm chưa có đánh giá nào."
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:paddingVertical="16dp"
+                android:visibility="visible" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDanhSachDanhGia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:visibility="gone" />
 
         </LinearLayout>
 

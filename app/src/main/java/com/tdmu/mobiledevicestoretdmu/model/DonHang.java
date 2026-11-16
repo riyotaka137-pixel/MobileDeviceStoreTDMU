@@ -5,7 +5,7 @@ public class DonHang {
     private int MaTK;
     private String TenNguoiNhan;
     private String NgayDat;
-    private int TongTien;
+    private long TongTien;
     private String DiaChiNhan;
     private String SoDienThoai;
     private int TrangThai; // 0 = ChoXacNhan, 1 = DangGiao, 2 = DaGiao, 3 = DaHuy
@@ -15,7 +15,7 @@ public class DonHang {
         this.PhuongThucThanhToan = "COD";
     }
 
-    public DonHang(int maDH, int maTK, String tenNguoiNhan, String ngayDat, int tongTien, String diaChiNhan, String soDienThoai, int trangThai, String phuongThucThanhToan) {
+    public DonHang(int maDH, int maTK, String tenNguoiNhan, String ngayDat, long tongTien, String diaChiNhan, String soDienThoai, int trangThai, String phuongThucThanhToan) {
         MaDH = maDH;
         MaTK = maTK;
         TenNguoiNhan = tenNguoiNhan;
@@ -27,7 +27,7 @@ public class DonHang {
         PhuongThucThanhToan = phuongThucThanhToan;
     }
 
-    public DonHang(int maDH, int maTK, String ngayDat, int tongTien, String diaChiNhan, String soDienThoai, int trangThai) {
+    public DonHang(int maDH, int maTK, String ngayDat, long tongTien, String diaChiNhan, String soDienThoai, int trangThai) {
         MaDH = maDH;
         MaTK = maTK;
         NgayDat = ngayDat;
@@ -50,7 +50,8 @@ public class DonHang {
     public String getNgayDat() { return NgayDat; }
     public void setNgayDat(String ngayDat) { NgayDat = ngayDat; }
 
-    public int getTongTien() { return TongTien; }
+    public long getTongTien() { return TongTien; }
+    public void setTongTien(long tongTien) { TongTien = tongTien; }
     public void setTongTien(int tongTien) { TongTien = tongTien; }
 
     public String getDiaChiNhan() { return DiaChiNhan; }

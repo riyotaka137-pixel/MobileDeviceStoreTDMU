@@ -1,6 +1,7 @@
 package com.tdmu.mobiledevicestoretdmu.activity;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +23,9 @@ import com.tdmu.mobiledevicestoretdmu.adapter.QuanLyVoucherAdapter;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 import com.tdmu.mobiledevicestoretdmu.model.GiamGia;
 
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class QuanLyVoucherActivity extends AppCompatActivity {
 
@@ -94,10 +97,41 @@ public class QuanLyVoucherActivity extends AppCompatActivity {
         EditText edtDialogTienGiamToiDa = dialogView.findViewById(R.id.edtDialogTienGiamToiDa);
         EditText edtDialogDonToiThieu = dialogView.findViewById(R.id.edtDialogDonToiThieu);
         EditText edtDialogNgayHetHan = dialogView.findViewById(R.id.edtDialogNgayHetHan);
+        ImageView btnChonLichNgayHetHan = dialogView.findViewById(R.id.btnChonLichNgayHetHan);
         EditText edtDialogMoTa = dialogView.findViewById(R.id.edtDialogMoTa);
         CheckBox cbDialogTrangThai = dialogView.findViewById(R.id.cbDialogTrangThai);
         Button btnDialogHuyVoucher = dialogView.findViewById(R.id.btnDialogHuyVoucher);
         Button btnDialogLuuVoucher = dialogView.findViewById(R.id.btnDialogLuuVoucher);
+
+        View.OnClickListener chonLichListener = v -> {
+            Calendar calendar = Calendar.getInstance();
+            String currentText = edtDialogNgayHetHan.getText().toString().trim();
+            if (!currentText.isEmpty() && currentText.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                try {
+                    String[] parts = currentText.split("-");
+                    int year = Integer.parseInt(parts[0]);
+                    int month = Integer.parseInt(parts[1]) - 1;
+                    int day = Integer.parseInt(parts[2]);
+                    calendar.set(year, month, day);
+                } catch (Exception ignored) {}
+            }
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(QuanLyVoucherActivity.this,
+                    (view, selectedYear, selectedMonth, selectedDay) -> {
+                        String formattedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d",
+                                selectedYear, selectedMonth + 1, selectedDay);
+                        edtDialogNgayHetHan.setText(formattedDate);
+                    }, year, month, day);
+            datePickerDialog.show();
+        };
+
+        if (btnChonLichNgayHetHan != null) {
+            btnChonLichNgayHetHan.setOnClickListener(chonLichListener);
+        }
+        edtDialogNgayHetHan.setOnClickListener(chonLichListener);
 
         boolean isEdit = (voucherToEdit != null);
         if (isEdit) {

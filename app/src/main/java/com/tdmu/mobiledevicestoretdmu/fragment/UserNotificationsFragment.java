@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdmu.mobiledevicestoretdmu.R;
+import com.tdmu.mobiledevicestoretdmu.activity.TrangChuUserActivity;
 import com.tdmu.mobiledevicestoretdmu.adapter.ThongBaoAdapter;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 import com.tdmu.mobiledevicestoretdmu.model.ThongBao;
@@ -72,5 +73,8 @@ public class UserNotificationsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         taiDanhSachThongBao();
+        if (getActivity() instanceof TrangChuUserActivity) {
+            ((TrangChuUserActivity) getActivity()).updateNotificationBadge();
+        }
     }
 }

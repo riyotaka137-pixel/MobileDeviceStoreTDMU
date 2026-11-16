@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.tdmu.mobiledevicestoretdmu.model.Banner;
 import com.tdmu.mobiledevicestoretdmu.model.ChiTietGioHang;
+import com.tdmu.mobiledevicestoretdmu.model.DanhGia;
 import com.tdmu.mobiledevicestoretdmu.model.DanhMuc;
 import com.tdmu.mobiledevicestoretdmu.model.DonHang;
 import com.tdmu.mobiledevicestoretdmu.model.GiamGia;
@@ -27,9 +28,9 @@ import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Tên cơ sở dữ liệu và phiên bản Production (Nâng lên V14 để thêm bảng ThongBao và GiamGia)
+    // Tên cơ sở dữ liệu và phiên bản Production (Nâng lên V15 để thêm bảng DanhGia)
     private static final String DATABASE_NAME = "BanThietBiTDMU.db";
-    private static final int DATABASE_VERSION = 14;
+    private static final int DATABASE_VERSION = 15;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -154,6 +155,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "TrangThai INTEGER DEFAULT 1)";
         db.execSQL(createTableGiamGia);
 
+        // 12. Tạo bảng DanhGia (Đánh giá & Bình luận sản phẩm thực tế)
+        String createTableDanhGia = "CREATE TABLE IF NOT EXISTS DanhGia (" +
+                "MaDG INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "MaSP INTEGER, " +
+                "MaTK INTEGER, " +
+                "SoSao INTEGER NOT NULL, " +
+                "NoiDung TEXT, " +
+                "NgayDanhGia TEXT, " +
+                "FOREIGN KEY(MaSP) REFERENCES SanPham(MaSP), " +
+                "FOREIGN KEY(MaTK) REFERENCES TaiKhoan(MaTK))";
+        db.execSQL(createTableDanhGia);
+
         // --- KHỞI TẠO SẴN TÀI KHOẢN HỆ THỐNG ---
         String insertAdmin = "INSERT INTO TaiKhoan (HoTen, Email, MatKhau, Quyen, TrangThai) " +
                 "VALUES ('Admin TDMU', 'admin@gmail.com', 'admin', 1, 1)";
@@ -188,6 +201,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "MoTa TEXT, " +
                     "TrangThai INTEGER DEFAULT 1)";
             db.execSQL(createTableGiamGia);
+        }
+
+        if (oldVersion < 15) {
+            String createTableDanhGia = "CREATE TABLE IF NOT EXISTS DanhGia (" +
+                    "MaDG INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "MaSP INTEGER, " +
+                    "MaTK INTEGER, " +
+                    "SoSao INTEGER NOT NULL, " +
+                    "NoiDung TEXT, " +
+                    "NgayDanhGia TEXT, " +
+                    "FOREIGN KEY(MaSP) REFERENCES SanPham(MaSP), " +
+                    "FOREIGN KEY(MaTK) REFERENCES TaiKhoan(MaTK))";
+            db.execSQL(createTableDanhGia);
         }
     }
 
@@ -397,7 +423,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 dh.setMaTK(cursor.getInt(1));
                 dh.setTenNguoiNhan(cursor.getColumnCount() > 2 ? cursor.getString(2) : "Khách hàng");
                 dh.setNgayDat(cursor.getColumnCount() > 3 ? cursor.getString(3) : "");
-                dh.setTongTien(cursor.getColumnCount() > 4 ? cursor.getInt(4) : 0);
+                dh.setTongTien(cursor.getColumnCount() > 4 ? cursor.getLong(4) : 0L);
                 dh.setDiaChiNhan(cursor.getColumnCount() > 5 ? cursor.getString(5) : "");
                 dh.setSoDienThoai(cursor.getColumnCount() > 6 ? cursor.getString(6) : "");
                 dh.setTrangThai(cursor.getColumnCount() > 7 ? cursor.getInt(7) : 0);
@@ -909,9 +935,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 return false;
             }
 
-            // Gộp trùng: UPDATE cộng dồn thêm 1
+            // Gộp trùng: UPDATE cộng dồn thêm 1 và cập nhật đơn giá mới nhất
             ContentValues values = new ContentValues();
             values.put("SoLuong", soLuongCu + 1);
+            values.put("DonGia", donGia);
             int rows = db.update("ChiTietGioHang", values, "MaCTGH = ?", new String[]{String.valueOf(maCTGH)});
             return rows > 0;
         } else {
@@ -991,7 +1018,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // Đặt hàng (Thêm đơn hàng với TenNguoiNhan chốt cứng, lưu chi tiết, trừ kho LẬP TỨC và xóa giỏ, trả về MaDH vừa tạo)
-    public long placeOrderReturnId(int maTK, String tenNguoiNhan, String soDienThoai, String diaChiNhan, String phuongThucThanhToan, int tongTien, List<ChiTietGioHang> listCart) {
+    public long placeOrderReturnId(int maTK, String tenNguoiNhan, String soDienThoai, String diaChiNhan, String phuongThucThanhToan, long tongTien, List<ChiTietGioHang> listCart) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
         try {
@@ -1036,7 +1063,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean placeOrder(int maTK, String tenNguoiNhan, String soDienThoai, String diaChiNhan, String phuongThucThanhToan, int tongTien, List<ChiTietGioHang> listCart) {
+    public boolean placeOrder(int maTK, String tenNguoiNhan, String soDienThoai, String diaChiNhan, String phuongThucThanhToan, long tongTien, List<ChiTietGioHang> listCart) {
         return placeOrderReturnId(maTK, tenNguoiNhan, soDienThoai, diaChiNhan, phuongThucThanhToan, tongTien, listCart) != -1;
     }
 
@@ -1144,7 +1171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 dh.setMaTK(cursor.getInt(1));
                 dh.setTenNguoiNhan(cursor.getColumnCount() > 2 ? cursor.getString(2) : "Khách hàng");
                 dh.setNgayDat(cursor.getColumnCount() > 3 ? cursor.getString(3) : "");
-                dh.setTongTien(cursor.getColumnCount() > 4 ? cursor.getInt(4) : 0);
+                dh.setTongTien(cursor.getColumnCount() > 4 ? cursor.getLong(4) : 0L);
                 dh.setDiaChiNhan(cursor.getColumnCount() > 5 ? cursor.getString(5) : "");
                 dh.setSoDienThoai(cursor.getColumnCount() > 6 ? cursor.getString(6) : "");
                 dh.setTrangThai(cursor.getColumnCount() > 7 ? cursor.getInt(7) : 0);
@@ -1290,5 +1317,130 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         int rows = db.delete("GiamGia", "MaGG = ?", new String[]{String.valueOf(maGG)});
         return rows > 0;
+    }
+
+    // Lấy danh sách Voucher đang kích hoạt và còn hạn sử dụng
+    public List<GiamGia> getActiveVouchers() {
+        List<GiamGia> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM GiamGia WHERE TrangThai = 1 AND (NgayHetHan IS NULL OR NgayHetHan = '' OR NgayHetHan >= ?) ORDER BY MaGG DESC",
+                new String[]{today}
+        );
+        if (cursor.moveToFirst()) {
+            do {
+                GiamGia gg = new GiamGia();
+                gg.setMaGG(cursor.getInt(0));
+                gg.setMaCode(cursor.getString(1));
+                gg.setPhanTramGiam(cursor.getInt(2));
+                gg.setTienGiamToiDa(cursor.getInt(3));
+                gg.setDonToiThieu(cursor.getInt(4));
+                gg.setNgayHetHan(cursor.getString(5));
+                gg.setMoTa(cursor.getString(6));
+                gg.setTrangThai(cursor.getColumnCount() > 7 ? cursor.getInt(7) : 1);
+                list.add(gg);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    // Đếm số lượng thông báo chưa đọc (TrangThai = 0) của một tài khoản
+    public int getUnreadThongBaoCount(int maTK) {
+        if (maTK <= 0) return 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM ThongBao WHERE MaTK = ? AND TrangThai = 0", new String[]{String.valueOf(maTK)});
+        int count = 0;
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0);
+        }
+        cursor.close();
+        return count;
+    }
+
+    // ==========================================
+    // CÁC HÀM XỬ LÝ ĐÁNH GIÁ SẢN PHẨM (DanhGia)
+    // ==========================================
+
+    // 1. Thêm đánh giá mới
+    public boolean insertDanhGia(DanhGia dg) {
+        if (dg == null) return false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("MaSP", dg.getMaSP());
+        values.put("MaTK", dg.getMaTK());
+        values.put("SoSao", dg.getSoSao());
+        values.put("NoiDung", dg.getNoiDung() != null ? dg.getNoiDung().trim() : "");
+        String ngay = dg.getNgayDanhGia();
+        if (ngay == null || ngay.trim().isEmpty()) {
+            ngay = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        }
+        values.put("NgayDanhGia", ngay);
+        long result = db.insert("DanhGia", null, values);
+        return result != -1;
+    }
+
+    // 2. Lấy danh sách đánh giá của sản phẩm kèm tên người đánh giá (JOIN TaiKhoan)
+    public List<DanhGia> getDanhGiaByMaSP(int maSP) {
+        List<DanhGia> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT dg.MaDG, dg.MaSP, dg.MaTK, dg.SoSao, dg.NoiDung, dg.NgayDanhGia, tk.HoTen " +
+                "FROM DanhGia dg " +
+                "LEFT JOIN TaiKhoan tk ON dg.MaTK = tk.MaTK " +
+                "WHERE dg.MaSP = ? " +
+                "ORDER BY dg.MaDG DESC";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(maSP)});
+        if (cursor.moveToFirst()) {
+            do {
+                DanhGia dg = new DanhGia();
+                dg.setMaDG(cursor.getInt(0));
+                dg.setMaSP(cursor.getInt(1));
+                dg.setMaTK(cursor.getInt(2));
+                dg.setSoSao(cursor.getInt(3));
+                dg.setNoiDung(cursor.getString(4));
+                dg.setNgayDanhGia(cursor.getString(5));
+                dg.setTenNguoiDung(cursor.getString(6) != null && !cursor.getString(6).trim().isEmpty() ? cursor.getString(6) : "Khách hàng");
+                list.add(dg);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    // 3. Tính điểm sao trung bình của sản phẩm
+    public float getAverageRating(int maSP) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT AVG(SoSao) FROM DanhGia WHERE MaSP = ?", new String[]{String.valueOf(maSP)});
+        float avg = 0f;
+        if (cursor.moveToFirst() && !cursor.isNull(0)) {
+            avg = cursor.getFloat(0);
+        }
+        cursor.close();
+        return avg;
+    }
+
+    // 4. Kiểm tra điều kiện được viết đánh giá:
+    // User đã có đơn hàng giao thành công (TrangThai = 2) chứa sản phẩm này VÀ chưa từng đánh giá sản phẩm này.
+    public boolean canUserReviewProduct(int maTK, int maSP) {
+        if (maTK <= 0 || maSP <= 0) return false;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // 4.1. Kiểm tra xem người dùng đã từng đánh giá sản phẩm này chưa
+        Cursor cursorCheckReviewed = db.rawQuery("SELECT 1 FROM DanhGia WHERE MaTK = ? AND MaSP = ? LIMIT 1",
+                new String[]{String.valueOf(maTK), String.valueOf(maSP)});
+        boolean alreadyReviewed = (cursorCheckReviewed.getCount() > 0);
+        cursorCheckReviewed.close();
+        if (alreadyReviewed) return false;
+
+        // 4.2. Kiểm tra xem người dùng đã mua và đơn hàng đã được giao thành công (TrangThai = 2) chưa
+        String queryOrder = "SELECT 1 FROM DonHang dh " +
+                "INNER JOIN ChiTietDonHang ctdh ON dh.MaDH = ctdh.MaDH " +
+                "WHERE dh.MaTK = ? AND dh.TrangThai = 2 AND ctdh.MaSP = ? LIMIT 1";
+        Cursor cursorCheckPurchased = db.rawQuery(queryOrder, new String[]{String.valueOf(maTK), String.valueOf(maSP)});
+        boolean purchasedAndDelivered = (cursorCheckPurchased.getCount() > 0);
+        cursorCheckPurchased.close();
+
+        return purchasedAndDelivered;
     }
 }

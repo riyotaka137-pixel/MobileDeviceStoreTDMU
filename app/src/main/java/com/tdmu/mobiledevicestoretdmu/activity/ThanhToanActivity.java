@@ -149,12 +149,12 @@ public class ThanhToanActivity extends AppCompatActivity {
         }
 
         // Tính số tiền được giảm
-        tienGiam = (tongTienGoc * voucher.getPhanTramGiam()) / 100;
+        tienGiam = ((long) tongTienGoc * voucher.getPhanTramGiam()) / 100;
         if (voucher.getTienGiamToiDa() > 0 && tienGiam > voucher.getTienGiamToiDa()) {
             tienGiam = voucher.getTienGiamToiDa();
         }
 
-        tongTienThanhToan = Math.max(0, tongTienGoc - tienGiam);
+        tongTienThanhToan = Math.max(0L, tongTienGoc - tienGiam);
 
         tvTienGiamGia.setText("-" + String.format("%,d", tienGiam).replace(',', '.') + " đ");
         tvTongTienThanhToan.setText(String.format("%,d", tongTienThanhToan).replace(',', '.') + " đ");
@@ -182,7 +182,7 @@ public class ThanhToanActivity extends AppCompatActivity {
             phuongThucThanhToan = "Chuyển khoản ngân hàng";
         }
 
-        long maDH = databaseHelper.placeOrderReturnId(maTK, hoTen, sdt, diaChi, phuongThucThanhToan, (int) tongTienThanhToan, listCart);
+        long maDH = databaseHelper.placeOrderReturnId(maTK, hoTen, sdt, diaChi, phuongThucThanhToan, tongTienThanhToan, listCart);
         if (maDH != -1) {
             // Tự động lưu thông báo đặt hàng vào bảng ThongBao
             String tongTienStr = String.format("%,d", tongTienThanhToan).replace(',', '.') + " đ";
@@ -194,7 +194,7 @@ public class ThanhToanActivity extends AppCompatActivity {
 
             if (rbChuyenKhoan.isChecked()) {
                 // Hiển thị Dialog mã VietQR động
-                hienDialogVietQR((int) maDH, (int) tongTienThanhToan);
+                hienDialogVietQR(maDH, tongTienThanhToan);
             } else {
                 Toast.makeText(this, "Đặt hàng thành công! Đơn hàng đang chờ xác nhận.", Toast.LENGTH_LONG).show();
                 chuyenSangLichSu();
@@ -204,7 +204,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         }
     }
 
-    private void hienDialogVietQR(int maDH, int tongTienThanhToan) {
+    private void hienDialogVietQR(long maDH, long tongTienThanhToan) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_vietqr_thanh_toan, null);
         builder.setView(dialogView);

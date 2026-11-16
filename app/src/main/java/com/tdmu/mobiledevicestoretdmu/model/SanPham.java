@@ -55,7 +55,7 @@ public class SanPham {
 
     public int getGiaKhuyenMai() {
         if (PhanTramGiam > 0 && PhanTramGiam <= 100) {
-            return (int) (Gia - (Gia * (PhanTramGiam / 100.0f)));
+            return (int) ((long) Gia * (100 - PhanTramGiam) / 100);
         }
         return Gia;
     }

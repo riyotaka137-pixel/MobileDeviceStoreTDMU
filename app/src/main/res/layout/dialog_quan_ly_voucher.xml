@@ -135,17 +135,37 @@
             android:textSize="13sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/edtDialogNgayHetHan"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_edittext_modern"
-            android:hint="Ví dụ: 2026-12-31"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_hint"
-            android:paddingHorizontal="14dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp">
+
+            <EditText
+                android:id="@+id/edtDialogNgayHetHan"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edittext_modern"
+                android:hint="Ví dụ: 2026-12-31"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_hint"
+                android:paddingHorizontal="14dp" />
+
+            <ImageView
+                android:id="@+id/btnChonLichNgayHetHan"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_btn_primary"
+                android:backgroundTint="@color/primary_yellow"
+                android:padding="12dp"
+                android:src="@drawable/ic_calendar"
+                android:contentDescription="Chọn ngày hết hạn" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
