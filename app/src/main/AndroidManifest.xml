@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
@@ -14,11 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileDeviceStoreTDMU">
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
 
         <!-- DangNhapActivity được set làm màn hình khởi chạy đầu tiên -->
         <activity
@@ -44,10 +40,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.ThongTinCaNhanActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".activity.LichSuMuaHangActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -61,10 +53,6 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activity.TimKiemSanPhamActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".activity.GioHangActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
@@ -96,7 +84,7 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".activity.KhuyenMaiActivity"
+            android:name=".activity.QuanLyVoucherActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 

@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/bg_light"
     android:fitsSystemWindows="true"
-    tools:context=".activity.KhuyenMaiActivity">
+    tools:context=".activity.QuanLyVoucherActivity">
 
     <!-- Header -->
     <LinearLayout
+        android:id="@+id/layoutHeaderQuanLyVoucher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bg_white"
         android:elevation="1dp"
         android:padding="16dp"
         android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/btnBackHeader"
@@ -31,32 +32,47 @@
             android:layout_marginEnd="12dp" />
 
         <TextView
-            android:id="@+id/tvTieuDeKhuyenMai"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="CHƯƠNG TRÌNH KHUYẾN MÃI"
+            android:text="QUẢN LÝ MÃ GIẢM GIÁ"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tvEmptyKhuyenMai"
+        android:id="@+id/tvEmptyQuanLyVoucher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hiện chưa có sản phẩm khuyến mãi nào!"
+        android:layout_below="@id/layoutHeaderQuanLyVoucher"
+        android:text="Chưa có mã giảm giá nào!\nHãy bấm nút (+) bên dưới để tạo mã mới."
         android:textColor="@color/text_secondary"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:gravity="center"
+        android:lineSpacingExtra="4dp"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvKhuyenMaiSanPham"
+        android:id="@+id/rvQuanLyVoucher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/layoutHeaderQuanLyVoucher"
         android:clipToPadding="false"
-        android:padding="8dp" />
+        android:paddingTop="8dp"
+        android:paddingBottom="88dp" />
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnThemVoucher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="24dp"
+        android:contentDescription="Thêm mã giảm giá"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/primary_yellow"
+        app:tint="@color/primary_black" />
+
+</RelativeLayout>

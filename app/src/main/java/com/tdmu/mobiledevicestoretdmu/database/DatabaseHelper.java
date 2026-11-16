@@ -10,8 +10,10 @@ import com.tdmu.mobiledevicestoretdmu.model.Banner;
 import com.tdmu.mobiledevicestoretdmu.model.ChiTietGioHang;
 import com.tdmu.mobiledevicestoretdmu.model.DanhMuc;
 import com.tdmu.mobiledevicestoretdmu.model.DonHang;
+import com.tdmu.mobiledevicestoretdmu.model.GiamGia;
 import com.tdmu.mobiledevicestoretdmu.model.SanPham;
 import com.tdmu.mobiledevicestoretdmu.model.TaiKhoan;
+import com.tdmu.mobiledevicestoretdmu.model.ThongBao;
 import com.tdmu.mobiledevicestoretdmu.model.ThuongHieu;
 
 import java.text.SimpleDateFormat;
@@ -25,9 +27,9 @@ import java.util.Map;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Tên cơ sở dữ liệu và phiên bản Production (Nâng lên V13 để thêm bảng Banner)
+    // Tên cơ sở dữ liệu và phiên bản Production (Nâng lên V14 để thêm bảng ThongBao và GiamGia)
     private static final String DATABASE_NAME = "BanThietBiTDMU.db";
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 14;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -129,6 +131,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY(MaSP) REFERENCES SanPham(MaSP))";
         db.execSQL(createTableChiTietDonHang);
 
+        // 10. Tạo bảng ThongBao
+        String createTableThongBao = "CREATE TABLE IF NOT EXISTS ThongBao (" +
+                "MaTB INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "MaTK INTEGER, " +
+                "TieuDe TEXT NOT NULL, " +
+                "NoiDung TEXT NOT NULL, " +
+                "NgayTao TEXT, " +
+                "TrangThai INTEGER DEFAULT 0, " +
+                "FOREIGN KEY(MaTK) REFERENCES TaiKhoan(MaTK))";
+        db.execSQL(createTableThongBao);
+
+        // 11. Tạo bảng GiamGia (Mã voucher động)
+        String createTableGiamGia = "CREATE TABLE IF NOT EXISTS GiamGia (" +
+                "MaGG INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "MaCode TEXT UNIQUE NOT NULL, " +
+                "PhanTramGiam INTEGER DEFAULT 0, " +
+                "TienGiamToiDa INTEGER DEFAULT 0, " +
+                "DonToiThieu INTEGER DEFAULT 0, " +
+                "NgayHetHan TEXT, " +
+                "MoTa TEXT, " +
+                "TrangThai INTEGER DEFAULT 1)";
+        db.execSQL(createTableGiamGia);
+
         // --- KHỞI TẠO SẴN TÀI KHOẢN HỆ THỐNG ---
         String insertAdmin = "INSERT INTO TaiKhoan (HoTen, Email, MatKhau, Quyen, TrangThai) " +
                 "VALUES ('Admin TDMU', 'admin@gmail.com', 'admin', 1, 1)";
@@ -141,17 +166,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS ChiTietDonHang");
-        db.execSQL("DROP TABLE IF EXISTS DonHang");
-        db.execSQL("DROP TABLE IF EXISTS ChiTietGioHang");
-        db.execSQL("DROP TABLE IF EXISTS GioHang");
-        db.execSQL("DROP TABLE IF EXISTS SanPham");
-        db.execSQL("DROP TABLE IF EXISTS Banner");
-        db.execSQL("DROP TABLE IF EXISTS ThuongHieu");
-        db.execSQL("DROP TABLE IF EXISTS DanhMuc");
-        db.execSQL("DROP TABLE IF EXISTS TaiKhoan");
+        // Bảo toàn 100% dữ liệu cũ: Chỉ tạo các bảng mới nếu chưa tồn tại, tuyệt đối không dùng DROP TABLE
+        if (oldVersion < 14) {
+            String createTableThongBao = "CREATE TABLE IF NOT EXISTS ThongBao (" +
+                    "MaTB INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "MaTK INTEGER, " +
+                    "TieuDe TEXT NOT NULL, " +
+                    "NoiDung TEXT NOT NULL, " +
+                    "NgayTao TEXT, " +
+                    "TrangThai INTEGER DEFAULT 0, " +
+                    "FOREIGN KEY(MaTK) REFERENCES TaiKhoan(MaTK))";
+            db.execSQL(createTableThongBao);
 
-        onCreate(db);
+            String createTableGiamGia = "CREATE TABLE IF NOT EXISTS GiamGia (" +
+                    "MaGG INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "MaCode TEXT UNIQUE NOT NULL, " +
+                    "PhanTramGiam INTEGER DEFAULT 0, " +
+                    "TienGiamToiDa INTEGER DEFAULT 0, " +
+                    "DonToiThieu INTEGER DEFAULT 0, " +
+                    "NgayHetHan TEXT, " +
+                    "MoTa TEXT, " +
+                    "TrangThai INTEGER DEFAULT 1)";
+            db.execSQL(createTableGiamGia);
+        }
     }
 
     // Kiểm tra xem Email đã tồn tại chưa
@@ -953,8 +990,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete("ChiTietGioHang", "MaCTGH = ?", new String[]{String.valueOf(maCTGH)});
     }
 
-    // Đặt hàng (Thêm đơn hàng với TenNguoiNhan chốt cứng, lưu chi tiết, trừ kho LẬP TỨC và xóa giỏ)
-    public boolean placeOrder(int maTK, String tenNguoiNhan, String soDienThoai, String diaChiNhan, String phuongThucThanhToan, int tongTien, List<ChiTietGioHang> listCart) {
+    // Đặt hàng (Thêm đơn hàng với TenNguoiNhan chốt cứng, lưu chi tiết, trừ kho LẬP TỨC và xóa giỏ, trả về MaDH vừa tạo)
+    public long placeOrderReturnId(int maTK, String tenNguoiNhan, String soDienThoai, String diaChiNhan, String phuongThucThanhToan, int tongTien, List<ChiTietGioHang> listCart) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
         try {
@@ -970,7 +1007,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             dhValues.put("PhuongThucThanhToan", phuongThucThanhToan != null ? phuongThucThanhToan : "COD");
 
             long maDH = db.insert("DonHang", null, dhValues);
-            if (maDH == -1) return false;
+            if (maDH == -1) return -1;
 
             for (ChiTietGioHang ctgh : listCart) {
                 ContentValues ctdhValues = new ContentValues();
@@ -990,13 +1027,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
 
             db.setTransactionSuccessful();
-            return true;
+            return maDH;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         } finally {
             db.endTransaction();
         }
+    }
+
+    public boolean placeOrder(int maTK, String tenNguoiNhan, String soDienThoai, String diaChiNhan, String phuongThucThanhToan, int tongTien, List<ChiTietGioHang> listCart) {
+        return placeOrderReturnId(maTK, tenNguoiNhan, soDienThoai, diaChiNhan, phuongThucThanhToan, tongTien, listCart) != -1;
     }
 
     // Hủy đơn hàng và HOÀN TRẢ LẠI SỐ LƯỢNG TỒN KHO
@@ -1125,6 +1166,129 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("TrangThai", trangThaiMoi);
         int rows = db.update("DonHang", values, "MaDH = ?", new String[]{String.valueOf(maDH)});
+        return rows > 0;
+    }
+
+    // ==========================================
+    // CÁC HÀM XỬ LÝ THÔNG BÁO (ThongBao)
+    // ==========================================
+    public boolean insertThongBao(int maTK, String tieuDe, String noiDung) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("MaTK", maTK);
+        values.put("TieuDe", tieuDe);
+        values.put("NoiDung", noiDung);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        values.put("NgayTao", sdf.format(new Date()));
+        values.put("TrangThai", 0); // 0: Chưa đọc
+        long result = db.insert("ThongBao", null, values);
+        return result != -1;
+    }
+
+    public List<ThongBao> getThongBaoByMaTK(int maTK) {
+        List<ThongBao> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM ThongBao WHERE MaTK = ? ORDER BY MaTB DESC", new String[]{String.valueOf(maTK)});
+        if (cursor.moveToFirst()) {
+            do {
+                ThongBao tb = new ThongBao();
+                tb.setMaTB(cursor.getInt(0));
+                tb.setMaTK(cursor.getInt(1));
+                tb.setTieuDe(cursor.getString(2));
+                tb.setNoiDung(cursor.getString(3));
+                tb.setNgayTao(cursor.getString(4));
+                tb.setTrangThai(cursor.getInt(5));
+                list.add(tb);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    public boolean danhDauDaDocThongBao(int maTB) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("TrangThai", 1);
+        int rows = db.update("ThongBao", values, "MaTB = ?", new String[]{String.valueOf(maTB)});
+        return rows > 0;
+    }
+
+    // ==========================================
+    // CÁC HÀM XỬ LÝ MÃ GIẢM GIÁ (GiamGia / Voucher)
+    // ==========================================
+    public List<GiamGia> getAllGiamGia() {
+        List<GiamGia> list = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM GiamGia ORDER BY MaGG DESC", null);
+        if (cursor.moveToFirst()) {
+            do {
+                GiamGia gg = new GiamGia();
+                gg.setMaGG(cursor.getInt(0));
+                gg.setMaCode(cursor.getString(1));
+                gg.setPhanTramGiam(cursor.getInt(2));
+                gg.setTienGiamToiDa(cursor.getInt(3));
+                gg.setDonToiThieu(cursor.getInt(4));
+                gg.setNgayHetHan(cursor.getString(5));
+                gg.setMoTa(cursor.getString(6));
+                gg.setTrangThai(cursor.getColumnCount() > 7 ? cursor.getInt(7) : 1);
+                list.add(gg);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return list;
+    }
+
+    public GiamGia getGiamGiaByCode(String code) {
+        if (code == null || code.trim().isEmpty()) return null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM GiamGia WHERE MaCode = ? COLLATE NOCASE", new String[]{code.trim()});
+        GiamGia gg = null;
+        if (cursor.moveToFirst()) {
+            gg = new GiamGia();
+            gg.setMaGG(cursor.getInt(0));
+            gg.setMaCode(cursor.getString(1));
+            gg.setPhanTramGiam(cursor.getInt(2));
+            gg.setTienGiamToiDa(cursor.getInt(3));
+            gg.setDonToiThieu(cursor.getInt(4));
+            gg.setNgayHetHan(cursor.getString(5));
+            gg.setMoTa(cursor.getString(6));
+            gg.setTrangThai(cursor.getColumnCount() > 7 ? cursor.getInt(7) : 1);
+        }
+        cursor.close();
+        return gg;
+    }
+
+    public boolean insertGiamGia(String code, int phanTramGiam, int tienGiamToiDa, int donToiThieu, String ngayHetHan, String moTa, int trangThai) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("MaCode", code != null ? code.trim().toUpperCase() : "");
+        values.put("PhanTramGiam", phanTramGiam);
+        values.put("TienGiamToiDa", tienGiamToiDa);
+        values.put("DonToiThieu", donToiThieu);
+        values.put("NgayHetHan", ngayHetHan != null ? ngayHetHan.trim() : "");
+        values.put("MoTa", moTa != null ? moTa.trim() : "");
+        values.put("TrangThai", trangThai);
+        long result = db.insert("GiamGia", null, values);
+        return result != -1;
+    }
+
+    public boolean updateGiamGia(int maGG, String code, int phanTramGiam, int tienGiamToiDa, int donToiThieu, String ngayHetHan, String moTa, int trangThai) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("MaCode", code != null ? code.trim().toUpperCase() : "");
+        values.put("PhanTramGiam", phanTramGiam);
+        values.put("TienGiamToiDa", tienGiamToiDa);
+        values.put("DonToiThieu", donToiThieu);
+        values.put("NgayHetHan", ngayHetHan != null ? ngayHetHan.trim() : "");
+        values.put("MoTa", moTa != null ? moTa.trim() : "");
+        values.put("TrangThai", trangThai);
+        int rows = db.update("GiamGia", values, "MaGG = ?", new String[]{String.valueOf(maGG)});
+        return rows > 0;
+    }
+
+    public boolean deleteGiamGia(int maGG) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rows = db.delete("GiamGia", "MaGG = ?", new String[]{String.valueOf(maGG)});
         return rows > 0;
     }
 }

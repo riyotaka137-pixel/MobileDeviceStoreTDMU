@@ -8,11 +8,12 @@ public class GiamGia {
     private int donToiThieu;
     private String ngayHetHan;
     private String moTa;
+    private int trangThai = 1; // 1: Đang hoạt động, 0: Tạm khóa/Ngừng áp dụng
 
     public GiamGia() {
     }
 
-    public GiamGia(int maGG, String maCode, int phanTramGiam, int tienGiamToiDa, int donToiThieu, String ngayHetHan, String moTa) {
+    public GiamGia(int maGG, String maCode, int phanTramGiam, int tienGiamToiDa, int donToiThieu, String ngayHetHan, String moTa, int trangThai) {
         this.maGG = maGG;
         this.maCode = maCode;
         this.phanTramGiam = phanTramGiam;
@@ -20,6 +21,11 @@ public class GiamGia {
         this.donToiThieu = donToiThieu;
         this.ngayHetHan = ngayHetHan;
         this.moTa = moTa;
+        this.trangThai = trangThai;
+    }
+
+    public GiamGia(int maGG, String maCode, int phanTramGiam, int tienGiamToiDa, int donToiThieu, String ngayHetHan, String moTa) {
+        this(maGG, maCode, phanTramGiam, tienGiamToiDa, donToiThieu, ngayHetHan, moTa, 1);
     }
 
     public int getMaGG() { return maGG; }
@@ -42,4 +48,7 @@ public class GiamGia {
 
     public String getMoTa() { return moTa; }
     public void setMoTa(String moTa) { this.moTa = moTa; }
+
+    public int getTrangThai() { return trangThai; }
+    public void setTrangThai(int trangThai) { this.trangThai = trangThai; }
 }

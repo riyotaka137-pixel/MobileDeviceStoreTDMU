@@ -18,10 +18,11 @@ import com.tdmu.mobiledevicestoretdmu.activity.QuanLyDonHangActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.QuanLySanPhamActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.QuanLyTaiKhoanActivity;
 import com.tdmu.mobiledevicestoretdmu.activity.QuanLyThuongHieuActivity;
+import com.tdmu.mobiledevicestoretdmu.activity.QuanLyVoucherActivity;
 
 public class AdminManagementFragment extends Fragment {
 
-    private MaterialCardView cardQuanLyDanhMuc, cardQuanLyThuongHieu, cardQuanLyBanner, cardQuanLySanPham, cardQuanLyDonHang, cardQuanLyTaiKhoan;
+    private MaterialCardView cardQuanLyDanhMuc, cardQuanLyThuongHieu, cardQuanLyBanner, cardQuanLySanPham, cardQuanLyDonHang, cardQuanLyTaiKhoan, cardQuanLyVoucher;
 
     @Nullable
     @Override
@@ -34,6 +35,7 @@ public class AdminManagementFragment extends Fragment {
         cardQuanLySanPham = view.findViewById(R.id.cardQuanLySanPham);
         cardQuanLyDonHang = view.findViewById(R.id.cardQuanLyDonHang);
         cardQuanLyTaiKhoan = view.findViewById(R.id.cardQuanLyTaiKhoan);
+        cardQuanLyVoucher = view.findViewById(R.id.cardQuanLyVoucher);
 
         cardQuanLyDanhMuc.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), QuanLyDanhMucActivity.class);
@@ -62,6 +64,11 @@ public class AdminManagementFragment extends Fragment {
 
         cardQuanLyTaiKhoan.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), QuanLyTaiKhoanActivity.class);
+            startActivity(intent);
+        });
+
+        cardQuanLyVoucher.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), QuanLyVoucherActivity.class);
             startActivity(intent);
         });
 

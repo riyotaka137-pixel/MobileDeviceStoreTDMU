@@ -90,6 +90,17 @@ public class QuanLyDonHangAdapter extends RecyclerView.Adapter<QuanLyDonHangAdap
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 databaseHelper.updateTrangThaiDonHang(donHang.getMaDH(), which);
+
+                // Tự động lưu thông báo cập nhật trạng thái đơn hàng cho khách hàng
+                if (which >= 0 && which < mangTrangThai.length) {
+                    String tenTrangThai = mangTrangThai[which];
+                    databaseHelper.insertThongBao(
+                            donHang.getMaTK(),
+                            "Cập nhật đơn hàng #" + donHang.getMaDH(),
+                            "Đơn hàng #" + donHang.getMaDH() + " của bạn đã được cập nhật sang trạng thái: " + tenTrangThai + "."
+                    );
+                }
+
                 Toast.makeText(context, "Cập nhật trạng thái thành công!", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 if (context instanceof QuanLyDonHangActivity) {

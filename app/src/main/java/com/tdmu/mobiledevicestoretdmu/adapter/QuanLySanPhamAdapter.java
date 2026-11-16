@@ -3,8 +3,7 @@ package com.tdmu.mobiledevicestoretdmu.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import com.bumptech.glide.Glide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -231,22 +230,30 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
     }
 
     public static void loadHinhAnhSanPham(Context context, String hinhAnh, ImageView imageView) {
+        if (context == null || imageView == null) return;
         if (hinhAnh != null && !hinhAnh.trim().isEmpty()) {
             File file = new File(hinhAnh);
             if (file.exists()) {
-                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
-                    return;
-                }
+                Glide.with(context)
+                        .load(file)
+                        .placeholder(R.mipmap.ic_launcher)
+                        .error(R.mipmap.ic_launcher)
+                        .into(imageView);
+                return;
             }
             int imageResId = context.getResources().getIdentifier(hinhAnh, "drawable", context.getPackageName());
             if (imageResId != 0) {
-                imageView.setImageResource(imageResId);
+                Glide.with(context)
+                        .load(imageResId)
+                        .placeholder(R.mipmap.ic_launcher)
+                        .error(R.mipmap.ic_launcher)
+                        .into(imageView);
                 return;
             }
         }
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        Glide.with(context)
+                .load(R.mipmap.ic_launcher)
+                .into(imageView);
     }
 
     @Override

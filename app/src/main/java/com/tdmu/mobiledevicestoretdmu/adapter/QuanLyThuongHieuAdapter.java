@@ -3,8 +3,7 @@ package com.tdmu.mobiledevicestoretdmu.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import com.bumptech.glide.Glide;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,25 +141,32 @@ public class QuanLyThuongHieuAdapter extends RecyclerView.Adapter<QuanLyThuongHi
     }
 
     public static void loadHinhAnhBrand(Context context, String hinhAnh, ImageView imageView) {
-        if (imageView == null) return;
+        if (context == null || imageView == null) return;
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         if (hinhAnh != null && !hinhAnh.trim().isEmpty()) {
             File file = new File(hinhAnh);
             if (file.exists()) {
-                Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                if (bitmap != null) {
-                    imageView.setImageBitmap(bitmap);
-                    return;
-                }
+                Glide.with(context)
+                        .load(file)
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo)
+                        .into(imageView);
+                return;
             }
             int imageResId = context.getResources().getIdentifier(hinhAnh, "drawable", context.getPackageName());
             if (imageResId != 0) {
-                imageView.setImageResource(imageResId);
+                Glide.with(context)
+                        .load(imageResId)
+                        .placeholder(R.drawable.logo)
+                        .error(R.drawable.logo)
+                        .into(imageView);
                 return;
             }
         }
-        imageView.setImageResource(R.drawable.logo);
+        Glide.with(context)
+                .load(R.drawable.logo)
+                .into(imageView);
     }
 
     @Override

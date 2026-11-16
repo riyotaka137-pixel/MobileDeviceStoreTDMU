@@ -95,7 +95,16 @@ public class UserCartFragment extends Fragment {
             rvGioHang.setVisibility(View.VISIBLE);
             layoutBottomGioHang.setVisibility(View.VISIBLE);
 
-            gioHangAdapter = new GioHangAdapter(requireContext(), listChiTiet);
+            gioHangAdapter = new GioHangAdapter(requireContext(), listChiTiet, new GioHangAdapter.OnCartChangeListener() {
+                @Override
+                public void onCartChanged() {
+                    if (listChiTiet == null || listChiTiet.isEmpty()) {
+                        taiDanhSachGioHang();
+                    } else {
+                        capNhatTongTien();
+                    }
+                }
+            });
             rvGioHang.setLayoutManager(new LinearLayoutManager(requireContext()));
             rvGioHang.setAdapter(gioHangAdapter);
 

@@ -230,7 +230,7 @@
                 android:id="@+id/cardQuanLyTaiKhoan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="16dp"
                 android:clickable="true"
                 android:focusable="true"
                 app:cardCornerRadius="16dp"
@@ -256,6 +256,45 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Danh sách khách hàng, khóa/mở khóa &amp; xóa tài khoản"
+                        android:textColor="@color/bg_white"
+                        android:textSize="14sp"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card 7: Quan ly Voucher / Ma Giam Gia -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardQuanLyVoucher"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/primary_black"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QUẢN LÝ MÃ GIẢM GIÁ (VOUCHER)"
+                        android:textColor="@color/primary_yellow"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thêm, sửa, xóa mã voucher, mức giảm giá &amp; điều kiện áp dụng"
                         android:textColor="@color/bg_white"
                         android:textSize="14sp"
                         android:layout_marginTop="8dp" />

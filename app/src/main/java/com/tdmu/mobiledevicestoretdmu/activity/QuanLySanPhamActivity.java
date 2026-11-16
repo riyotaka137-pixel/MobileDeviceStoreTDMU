@@ -2,9 +2,8 @@ package com.tdmu.mobiledevicestoretdmu.activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import com.bumptech.glide.Glide;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,10 +69,7 @@ public class QuanLySanPhamActivity extends AppCompatActivity {
                         if (savedFilePath != null) {
                             pathImageSelected = savedFilePath;
                             if (imgCurrentPreview != null) {
-                                Bitmap bitmap = BitmapFactory.decodeFile(savedFilePath);
-                                if (bitmap != null) {
-                                    imgCurrentPreview.setImageBitmap(bitmap);
-                                }
+                                Glide.with(this).load(new File(savedFilePath)).into(imgCurrentPreview);
                             }
                             Toast.makeText(this, "Đã chọn ảnh từ thư viện!", Toast.LENGTH_SHORT).show();
                         } else {

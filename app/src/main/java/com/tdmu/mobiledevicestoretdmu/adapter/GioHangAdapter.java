@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tdmu.mobiledevicestoretdmu.R;
-import com.tdmu.mobiledevicestoretdmu.activity.GioHangActivity;
 import com.tdmu.mobiledevicestoretdmu.database.DatabaseHelper;
 import com.tdmu.mobiledevicestoretdmu.model.ChiTietGioHang;
 import com.tdmu.mobiledevicestoretdmu.model.SanPham;
@@ -21,14 +20,28 @@ import java.util.List;
 
 public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHolder> {
 
+    public interface OnCartChangeListener {
+        void onCartChanged();
+    }
+
     private Context context;
     private List<ChiTietGioHang> listChiTiet;
     private DatabaseHelper databaseHelper;
+    private OnCartChangeListener onCartChangeListener;
 
-    public GioHangAdapter(Context context, List<ChiTietGioHang> listChiTiet) {
+    public GioHangAdapter(Context context, List<ChiTietGioHang> listChiTiet, OnCartChangeListener listener) {
         this.context = context;
         this.listChiTiet = listChiTiet;
         this.databaseHelper = new DatabaseHelper(context);
+        this.onCartChangeListener = listener;
+    }
+
+    public GioHangAdapter(Context context, List<ChiTietGioHang> listChiTiet) {
+        this(context, listChiTiet, null);
+    }
+
+    public void setOnCartChangeListener(OnCartChangeListener listener) {
+        this.onCartChangeListener = listener;
     }
 
     @NonNull
@@ -45,7 +58,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
 
         if (sanPham != null) {
             holder.tvTenSPGioHang.setText(sanPham.getTenSP());
-            // Load hình ảnh (hỗ trợ cả đường dẫn Internal Storage và tên Drawable)
+            // Load hình ảnh qua Glide
             QuanLySanPhamAdapter.loadHinhAnhSanPham(context, sanPham.getHinhAnh(), holder.imgGioHang);
         } else {
             holder.tvTenSPGioHang.setText("Sản phẩm #" + ctgh.getMaSP());
@@ -63,8 +76,8 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
                     databaseHelper.updateSoLuongGioHang(ctgh.getMaCTGH(), ctgh.getSoLuong() - 1);
                     ctgh.setSoLuong(ctgh.getSoLuong() - 1);
                     notifyItemChanged(holder.getAdapterPosition());
-                    if (context instanceof GioHangActivity) {
-                        ((GioHangActivity) context).capNhatTongTien();
+                    if (onCartChangeListener != null) {
+                        onCartChangeListener.onCartChanged();
                     }
                 }
             }
@@ -76,8 +89,8 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
                 databaseHelper.updateSoLuongGioHang(ctgh.getMaCTGH(), ctgh.getSoLuong() + 1);
                 ctgh.setSoLuong(ctgh.getSoLuong() + 1);
                 notifyItemChanged(holder.getAdapterPosition());
-                if (context instanceof GioHangActivity) {
-                    ((GioHangActivity) context).capNhatTongTien();
+                if (onCartChangeListener != null) {
+                    onCartChangeListener.onCartChanged();
                 }
             }
         });
@@ -86,8 +99,14 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 databaseHelper.deleteChiTietGioHang(ctgh.getMaCTGH());
-                if (context instanceof GioHangActivity) {
-                    ((GioHangActivity) context).taiDanhSachGioHang();
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION && pos < listChiTiet.size()) {
+                    listChiTiet.remove(pos);
+                    notifyItemRemoved(pos);
+                    notifyItemRangeChanged(pos, listChiTiet.size());
+                }
+                if (onCartChangeListener != null) {
+                    onCartChangeListener.onCartChanged();
                 }
             }
         });
