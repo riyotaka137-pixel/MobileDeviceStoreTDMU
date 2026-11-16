@@ -3,9 +3,12 @@ package com.tdmu.mobiledevicestoretdmu.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ public class DangNhapActivity extends AppCompatActivity {
     private Button btnDangNhap;
     private TextView tvChuyenSangDangKy;
     private DatabaseHelper databaseHelper;
+    private RelativeLayout layoutLoadingLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +34,22 @@ public class DangNhapActivity extends AppCompatActivity {
         anhXa();
         databaseHelper = new DatabaseHelper(this);
 
-        btnDangNhap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnDangNhap.setOnClickListener(v -> {
+            // Vô hiệu hóa nút và hiện layout Loading
+            btnDangNhap.setEnabled(false);
+            layoutLoadingLogin.setVisibility(View.VISIBLE);
+
+            // Giả lập thời gian loading mạng (khoảng 1.5 giây)
+            new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                layoutLoadingLogin.setVisibility(View.GONE);
+                btnDangNhap.setEnabled(true);
                 xuLyDangNhap();
-            }
+            }, 1500);
         });
 
-        tvChuyenSangDangKy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DangNhapActivity.this, DangKyActivity.class);
-                startActivity(intent);
-            }
+        tvChuyenSangDangKy.setOnClickListener(v -> {
+            Intent intent = new Intent(DangNhapActivity.this, DangKyActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -51,6 +58,7 @@ public class DangNhapActivity extends AppCompatActivity {
         edtMatKhauDangNhap = findViewById(R.id.edtMatKhauDangNhap);
         btnDangNhap = findViewById(R.id.btnDangNhap);
         tvChuyenSangDangKy = findViewById(R.id.tvChuyenSangDangKy);
+        layoutLoadingLogin = findViewById(R.id.layoutLoadingLogin);
     }
 
     private void xuLyDangNhap() {

@@ -51,6 +51,10 @@ public class UserHomeFragment extends Fragment {
     private View btnTimKiem;
     private ViewPager2 vpBannerSlider;
     private RecyclerView rvDanhMuc, rvSanPham;
+    
+    // UI elements cho màn hình loading
+    private android.widget.ProgressBar progressBarHome;
+    private android.widget.LinearLayout layoutNoiDungHome;
 
     private DatabaseHelper databaseHelper;
     private DanhMucAdapter danhMucAdapter;
@@ -82,14 +86,26 @@ public class UserHomeFragment extends Fragment {
         vpBannerSlider = view.findViewById(R.id.vpBannerSlider);
         rvDanhMuc = view.findViewById(R.id.rvDanhMuc);
         rvSanPham = view.findViewById(R.id.rvSanPham);
+        progressBarHome = view.findViewById(R.id.progressBarHome);
+        layoutNoiDungHome = view.findViewById(R.id.layoutNoiDungHome);
 
         databaseHelper = new DatabaseHelper(requireContext());
 
-        hienThiThongTinUser();
-        taiDanhSachBanner();
-        taiDanhSachDanhMuc();
-        taiDanhSachSanPham();
-        batSuKien();
+        // Hien thi ProgressBar, An Noi Dung
+        layoutNoiDungHome.setVisibility(View.INVISIBLE);
+        progressBarHome.setVisibility(View.VISIBLE);
+
+        // Gia lap thoi gian load (1.5 giay) truoc khi hien thi noi dung thuc te
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            progressBarHome.setVisibility(View.GONE);
+            layoutNoiDungHome.setVisibility(View.VISIBLE);
+            
+            hienThiThongTinUser();
+            taiDanhSachBanner();
+            taiDanhSachDanhMuc();
+            taiDanhSachSanPham();
+            batSuKien();
+        }, 1500);
 
         return view;
     }

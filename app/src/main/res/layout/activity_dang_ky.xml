@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Đăng nhập ngay"
-                android:textColor="@color/primary_yellow"
+            android:textColor="@color/primary_yellow"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:padding="4dp" />

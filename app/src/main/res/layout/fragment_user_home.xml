@@ -12,127 +12,143 @@
         android:clipToPadding="false"
         android:paddingBottom="24dp">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/layoutNoiDungHome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:visibility="invisible">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Xin chào,"
-                        android:fontFamily="@font/nunito"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvXinChaoUser"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Khách hàng"
-                        android:fontFamily="@font/nunito"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Xin chào,"
+                            android:fontFamily="@font/nunito"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvXinChaoUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Khách hàng"
+                            android:fontFamily="@font/nunito"
+                            android:textColor="@color/text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/btnGioHangHeader"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:src="@drawable/ic_gio_hang"
+                        android:padding="8dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        app:tint="@color/primary_black"
+                        android:contentDescription="Giỏ hàng" />
+                </LinearLayout>
+
+                <!-- Search box -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+
+                    <EditText
+                        android:id="@+id/edtTimKiem"
+                        android:layout_width="0dp"
+                        android:layout_height="52dp"
+                        android:layout_weight="1"
+                        android:hint="Tìm kiếm sản phẩm..."
+                        android:textColorHint="@color/text_hint"
                         android:textColor="@color/text_primary"
-                        android:textSize="17sp"
+                        android:background="@drawable/bg_search_pill"
+                        android:paddingHorizontal="24dp"
+                        android:layout_marginEnd="12dp"
+                        android:inputType="text"
+                        android:imeOptions="actionSearch" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnTimKiem"
+                        android:layout_width="64dp"
+                        android:layout_height="52dp"
+                        android:text="TÌM"
+                        android:textColor="@color/text_primary"
+                        android:background="@drawable/bg_search_pill"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/btnGioHangHeader"
-                    android:layout_width="44dp"
-                    android:layout_height="44dp"
-                    android:src="@drawable/ic_gio_hang"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="8dp"
-                    app:tint="@color/primary_black"
-                    android:contentDescription="Giỏ hàng" />
-            </LinearLayout>
+                <!-- Banner Slider Slider tự động cuộn sau 3 giây -->
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpBannerSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginBottom="24dp" />
 
-            <!-- Search box -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
-
-                <EditText
-                    android:id="@+id/edtTimKiem"
-                    android:layout_width="0dp"
-                    android:layout_height="52dp"
-                    android:layout_weight="1"
-                    android:hint="Tìm kiếm sản phẩm..."
-                    android:textColorHint="@color/text_hint"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DANH MỤC"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="@color/text_primary"
-                    android:background="@drawable/bg_search_pill"
-                    android:paddingHorizontal="24dp"
-                    android:layout_marginEnd="12dp"
-                    android:inputType="text"
-                    android:imeOptions="actionSearch" />
+                    android:layout_marginBottom="16dp" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnTimKiem"
-                    android:layout_width="64dp"
-                    android:layout_height="52dp"
-                    android:text="TÌM"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDanhMuc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="28dp"
+                    android:clipToPadding="false" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SẢN PHẨM NỔI BẬT"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="@color/text_primary"
-                    android:background="@drawable/bg_search_pill"
-                    android:textStyle="bold" />
+                    android:layout_marginBottom="16dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvSanPham"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false" />
 
             </LinearLayout>
 
-            <!-- Banner Slider Slider tự động cuộn sau 3 giây -->
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vpBannerSlider"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginBottom="24dp" />
+            <ProgressBar
+                android:id="@+id/progressBarHome"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="100dp"
+                android:indeterminateTint="@color/primary_yellow" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="DANH MỤC"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="16dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvDanhMuc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="28dp"
-                android:clipToPadding="false" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SẢN PHẨM NỔI BẬT"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_primary"
-                android:layout_marginBottom="16dp" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvSanPham"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false" />
-
-        </LinearLayout>
+        </RelativeLayout>
 
     </ScrollView>
 

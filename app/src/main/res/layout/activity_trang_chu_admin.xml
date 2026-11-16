@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_light"
+    android:background="@color/primary_yellow"
     android:fitsSystemWindows="true"
     tools:context=".activity.TrangChuAdminActivity">
 
     <!-- FrameContainer cho cac Fragment -->
     <FrameLayout
         android:id="@+id/frame_container_admin"
+        android:background="@color/bg_light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottom_navigation_admin" />
