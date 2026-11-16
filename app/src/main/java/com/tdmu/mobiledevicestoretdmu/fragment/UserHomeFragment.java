@@ -91,34 +91,34 @@ public class UserHomeFragment extends Fragment {
 
         databaseHelper = new DatabaseHelper(requireContext());
 
-        // Hien thi ProgressBar, An Noi Dung
-        layoutNoiDungHome.setVisibility(View.INVISIBLE);
-        progressBarHome.setVisibility(View.VISIBLE);
-
-        // Gia lap thoi gian load (1.5 giay) truoc khi hien thi noi dung thuc te
-        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+        // Hiển thị nội dung ngay lập tức, không delay giả lập
+        if (progressBarHome != null) {
             progressBarHome.setVisibility(View.GONE);
+        }
+        if (layoutNoiDungHome != null) {
             layoutNoiDungHome.setVisibility(View.VISIBLE);
-            
-            hienThiThongTinUser();
-            taiDanhSachBanner();
-            taiDanhSachDanhMuc();
-            taiDanhSachSanPham();
-            batSuKien();
-        }, 1500);
+        }
+
+        hienThiThongTinUser();
+        taiDanhSachBanner();
+        taiDanhSachDanhMuc();
+        taiDanhSachSanPham();
+        batSuKien();
 
         return view;
     }
 
     private void hienThiThongTinUser() {
-        if (getContext() == null) return;
+        if (!isAdded() || getContext() == null) return;
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         String hoTen = sharedPreferences.getString("HoTen", "Khách hàng");
-        tvXinChaoUser.setText(hoTen);
+        if (tvXinChaoUser != null) {
+            tvXinChaoUser.setText(hoTen);
+        }
     }
 
     private void taiDanhSachBanner() {
-        if (getContext() == null || vpBannerSlider == null) return;
+        if (!isAdded() || getContext() == null || vpBannerSlider == null) return;
 
         List<Banner> listBanner = databaseHelper.getAllBanner();
         if (listBanner == null || listBanner.isEmpty()) {
@@ -131,6 +131,8 @@ public class UserHomeFragment extends Fragment {
     }
 
     private void taiDanhSachDanhMuc() {
+        if (!isAdded() || getContext() == null || rvDanhMuc == null) return;
+
         List<DanhMuc> listDanhMuc = databaseHelper.getAllDanhMuc();
         danhMucAdapter = new DanhMucAdapter(requireContext(), listDanhMuc);
         rvDanhMuc.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -138,6 +140,8 @@ public class UserHomeFragment extends Fragment {
     }
 
     private void taiDanhSachSanPham() {
+        if (!isAdded() || getContext() == null || rvSanPham == null) return;
+
         List<SanPham> listSanPham = databaseHelper.getAllSanPham();
         sanPhamAdapter = new SanPhamAdapter(requireContext(), listSanPham);
         rvSanPham.setLayoutManager(new GridLayoutManager(requireContext(), 2));
@@ -145,6 +149,7 @@ public class UserHomeFragment extends Fragment {
     }
 
     private void batSuKien() {
+        if (!isAdded() || getContext() == null) return;
         if (btnGioHangHeader != null) {
             btnGioHangHeader.setOnClickListener(v -> {
                 if (getActivity() instanceof TrangChuUserActivity) {
@@ -172,7 +177,7 @@ public class UserHomeFragment extends Fragment {
      * Lấy tọa độ ảnh sản phẩm & icon giỏ hàng trên Bottom Nav để vẽ đường cong Bezier Parabola
      */
     public void animateAddToCart(ImageView imgProduct, View targetCartView) {
-        if (imgProduct == null || targetCartView == null || getActivity() == null) return;
+        if (!isAdded() || getContext() == null || imgProduct == null || targetCartView == null || getActivity() == null) return;
 
         // 1. TÍNH TỌA ĐỘ BẮT ĐẦU VÀ KẾT THÚC TRÊN MÀN HÌNH (getLocationOnScreen)
         int[] startLoc = new int[2];
@@ -241,8 +246,10 @@ public class UserHomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (!isAdded() || getContext() == null) return;
         hienThiThongTinUser();
         taiDanhSachBanner();
+        taiDanhSachDanhMuc();
         taiDanhSachSanPham();
 
         // Kích hoạt tự động cuộn Banner sau khoảng 3 giây (3000ms)

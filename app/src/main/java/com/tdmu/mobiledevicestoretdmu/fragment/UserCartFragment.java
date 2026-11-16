@@ -3,8 +3,6 @@ package com.tdmu.mobiledevicestoretdmu.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +73,7 @@ public class UserCartFragment extends Fragment {
     }
 
     public void taiDanhSachGioHang() {
-        if (maTK == -1 || getContext() == null) return;
+        if (!isAdded() || getContext() == null || maTK == -1) return;
 
         listChiTiet = databaseHelper.getListCartItem(maTK);
 
@@ -84,11 +82,11 @@ public class UserCartFragment extends Fragment {
             rvGioHang.setVisibility(View.GONE);
             layoutBottomGioHang.setVisibility(View.GONE);
 
-            // Kích hoạt hiệu ứng thuần XML Animated Vector Drawable lắc giỏ hàng trống
-            imgEmptyCartShake.setImageResource(R.drawable.avd_cart_shake);
-            Drawable drawable = imgEmptyCartShake.getDrawable();
-            if (drawable instanceof Animatable) {
-                ((Animatable) drawable).start();
+            // Tắt hoàn toàn hiệu ứng lắc lư, icon đứng yên tĩnh (static)
+            if (imgEmptyCartShake != null) {
+                imgEmptyCartShake.clearAnimation();
+                imgEmptyCartShake.setRotation(0f);
+                imgEmptyCartShake.setImageResource(R.drawable.ic_cart_shake);
             }
         } else {
             layoutEmptyCart.setVisibility(View.GONE);
@@ -113,6 +111,7 @@ public class UserCartFragment extends Fragment {
     }
 
     public void capNhatTongTien() {
+        if (!isAdded() || getContext() == null) return;
         tongTien = 0;
         if (listChiTiet != null) {
             for (ChiTietGioHang ctgh : listChiTiet) {

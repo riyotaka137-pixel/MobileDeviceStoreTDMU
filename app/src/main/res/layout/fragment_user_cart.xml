@@ -20,7 +20,7 @@
             android:id="@+id/imgEmptyCartShake"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/avd_cart_shake"
+            android:src="@drawable/ic_cart_shake"
             android:contentDescription="Giỏ hàng trống"
             android:layout_marginBottom="16dp" />
 
