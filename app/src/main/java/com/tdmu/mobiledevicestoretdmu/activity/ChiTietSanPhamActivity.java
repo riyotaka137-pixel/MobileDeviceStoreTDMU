@@ -129,15 +129,18 @@ public class ChiTietSanPhamActivity extends AppCompatActivity {
             // Load hình ảnh (hỗ trợ cả đường dẫn Internal Storage và tên Drawable)
             QuanLySanPhamAdapter.loadHinhAnhSanPham(this, sanPham.getHinhAnh(), imgChiTietSP);
 
-            if (sanPham.getSoLuong() <= 0) {
-                tvKhoChiTietSP.setText("Số lượng tồn kho: HẾT HÀNG");
+            int soLuongDaBan = databaseHelper.getSoLuongDaBan(maSP);
+            int tonKho = sanPham.getSoLuongTon();
+
+            if (tonKho <= 0) {
+                tvKhoChiTietSP.setText("Đã bán: " + soLuongDaBan + "   |   Số lượng tồn kho: HẾT HÀNG");
                 tvKhoChiTietSP.setTextColor(Color.parseColor("#D32F2F"));
                 btnThemVaoGioHang.setText("HẾT HÀNG");
                 btnThemVaoGioHang.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#757575")));
                 btnThemVaoGioHang.setEnabled(false);
             } else {
-                tvKhoChiTietSP.setText("Số lượng tồn kho: " + sanPham.getSoLuong());
-                tvKhoChiTietSP.setTextColor(Color.parseColor("#388E3C"));
+                tvKhoChiTietSP.setText("Đã bán: " + soLuongDaBan + "   |   Số lượng tồn kho: " + tonKho);
+                tvKhoChiTietSP.setTextColor(Color.parseColor("#2E7D32"));
                 btnThemVaoGioHang.setText("THÊM VÀO GIỎ HÀNG");
                 btnThemVaoGioHang.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#111111")));
                 btnThemVaoGioHang.setEnabled(true);

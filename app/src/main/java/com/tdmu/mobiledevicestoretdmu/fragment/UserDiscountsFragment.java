@@ -61,10 +61,10 @@ public class UserDiscountsFragment extends Fragment {
             layoutVoucherKhuyenMai.setVisibility(View.GONE);
         }
 
-        // 2. Tải danh sách Sản phẩm giảm giá
+        // 2. Tải danh sách Sản phẩm giảm giá (Bật cờ showBuyNow = true để hiện nút Mua ngay)
         List<SanPham> danhSachGiamGia = databaseHelper.getSanPhamKhuyenMai();
         if (danhSachGiamGia != null && !danhSachGiamGia.isEmpty()) {
-            SanPhamAdapter spAdapter = new SanPhamAdapter(requireContext(), danhSachGiamGia);
+            SanPhamAdapter spAdapter = new SanPhamAdapter(requireContext(), danhSachGiamGia, true);
             rvSanPhamKhuyenMai.setLayoutManager(new LinearLayoutManager(requireContext()));
             rvSanPhamKhuyenMai.setAdapter(spAdapter);
         }

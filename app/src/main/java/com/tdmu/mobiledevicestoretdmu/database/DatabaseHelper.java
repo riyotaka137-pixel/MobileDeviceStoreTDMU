@@ -32,8 +32,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "BanThietBiTDMU.db";
     private static final int DATABASE_VERSION = 15;
 
+    private Context context;
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context = context != null ? context.getApplicationContext() : null;
+    }
+
+    public void seedDatabaseIfEmpty() {
+        if (context != null) {
+            com.tdmu.mobiledevicestoretdmu.utils.DatabaseSeeder.seedDatabase(context, this);
+        }
     }
 
     @Override
@@ -1442,5 +1451,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursorCheckPurchased.close();
 
         return purchasedAndDelivered;
+    }
+
+    // 5. Lấy tổng số lượng đã bán của sản phẩm từ các đơn hàng thành công (TrangThai = 2)
+    public int getSoLuongDaBan(int maSP) {
+        if (maSP <= 0) return 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT COALESCE(SUM(ct.SoLuong), 0) " +
+                "FROM ChiTietDonHang ct " +
+                "INNER JOIN DonHang dh ON ct.MaDH = dh.MaDH " +
+                "WHERE ct.MaSP = ? AND dh.TrangThai = 2";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(maSP)});
+        int soLuongDaBan = 0;
+        if (cursor.moveToFirst() && !cursor.isNull(0)) {
+            soLuongDaBan = cursor.getInt(0);
+        }
+        cursor.close();
+        return soLuongDaBan;
     }
 }

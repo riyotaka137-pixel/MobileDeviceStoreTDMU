@@ -1,0 +1,129 @@
+{
+  "danh_muc": [
+    {
+      "ten_danh_muc": "Điện thoại",
+      "mo_ta": "Các dòng smartphone chính hãng mới nhất",
+      "hinh_anh": "seed_danh_muc_phone.jpg"
+    },
+    {
+      "ten_danh_muc": "Máy tính bảng",
+      "mo_ta": "Tablet phục vụ học tập, làm việc và giải trí",
+      "hinh_anh": "seed_danh_muc_tablet.jpg"
+    },
+    {
+      "ten_danh_muc": "Phụ kiện",
+      "mo_ta": "Tai nghe, sạc nhanh, ốp lưng, cáp sạc cao cấp",
+      "hinh_anh": "seed_danh_muc_accessory.jpg"
+    }
+  ],
+  "thuong_hieu": [
+    {
+      "ten_thuong_hieu": "Apple",
+      "mo_ta": "Sản phẩm chính hãng Apple Việt Nam (VN/A)",
+      "hinh_anh": "seed_brand_apple.jpg"
+    },
+    {
+      "ten_thuong_hieu": "Samsung",
+      "mo_ta": "Thiết bị di động thông minh Galaxy chính hãng",
+      "hinh_anh": "seed_brand_samsung.jpg"
+    },
+    {
+      "ten_thuong_hieu": "Xiaomi",
+      "mo_ta": "Điện thoại hiệu năng cao, pin trâu giá tốt",
+      "hinh_anh": "seed_brand_xiaomi.jpg"
+    }
+  ],
+  "san_pham": [
+    {
+      "ten_sp": "iPhone 15 Pro Max 256GB",
+      "danh_muc": "Điện thoại",
+      "thuong_hieu": "Apple",
+      "gia": 29990000,
+      "so_luong": 20,
+      "mo_ta": "Chip A17 Pro mạnh mẽ, khung viền Titan siêu nhẹ, camera 48MP zoom quang 5x đỉnh cao.",
+      "hinh_anh": "seed_sp_iphone15promax.jpg",
+      "phan_tram_giam": 10
+    },
+    {
+      "ten_sp": "Samsung Galaxy S24 Ultra 256GB",
+      "danh_muc": "Điện thoại",
+      "thuong_hieu": "Samsung",
+      "gia": 27990000,
+      "so_luong": 15,
+      "mo_ta": "Tích hợp Galaxy AI quyền năng, bút S-Pen đa năng, camera 200MP siêu nét và zoom 100x.",
+      "hinh_anh": "seed_sp_s24ultra.jpg",
+      "phan_tram_giam": 8
+    },
+    {
+      "ten_sp": "iPad Air 6 M2 11 inch Wi-Fi 128GB",
+      "danh_muc": "Máy tính bảng",
+      "thuong_hieu": "Apple",
+      "gia": 16490000,
+      "so_luong": 25,
+      "mo_ta": "Hiệu năng bứt phá với chip M2, màn hình Liquid Retina tuyệt đẹp, hỗ trợ Apple Pencil Pro.",
+      "hinh_anh": "seed_sp_ipadair6.jpg",
+      "phan_tram_giam": 5
+    },
+    {
+      "ten_sp": "Xiaomi 14 5G 12GB/256GB",
+      "danh_muc": "Điện thoại",
+      "thuong_hieu": "Xiaomi",
+      "gia": 18990000,
+      "so_luong": 18,
+      "mo_ta": "Ống kính quang học Leica đỉnh cao, chip Snapdragon 8 Gen 3 và sạc siêu tốc 90W.",
+      "hinh_anh": "seed_sp_xiaomi14.jpg",
+      "phan_tram_giam": 15
+    },
+    {
+      "ten_sp": "Tai nghe AirPods Pro 2 (USB-C)",
+      "danh_muc": "Phụ kiện",
+      "thuong_hieu": "Apple",
+      "gia": 5690000,
+      "so_luong": 30,
+      "mo_ta": "Chủ động khử tiếng ồn gấp 2 lần, âm thanh thích ứng và cổng sạc USB-C tiện dụng.",
+      "hinh_anh": "seed_sp_airpodspro2.jpg",
+      "phan_tram_giam": 12
+    }
+  ],
+  "banner": [
+    {
+      "ten_banner": "Đại hội Smartphone TDMU",
+      "mo_ta": "Ưu đãi siêu sốc cho sinh viên TDMU lên đến 20%",
+      "hinh_anh": "seed_banner_sale.jpg"
+    },
+    {
+      "ten_banner": "Ra mắt Siêu phẩm Mới",
+      "mo_ta": "Trải nghiệm flagship đỉnh cao với nhiều quà tặng hấp dẫn",
+      "hinh_anh": "seed_banner_flagship.jpg"
+    }
+  ],
+  "giam_gia": [
+    {
+      "ma_code": "TDMUWELCOME",
+      "phan_tram_giam": 15,
+      "tien_giam_toi_da": 300000,
+      "don_toi_thieu": 500000,
+      "ngay_het_han": "2027-12-31",
+      "mo_ta": "Mã giảm giá chào mừng thành viên mới TDMU Mobile Store",
+      "trang_thai": 1
+    },
+    {
+      "ma_code": "SALE10",
+      "phan_tram_giam": 10,
+      "tien_giam_toi_da": 500000,
+      "don_toi_thieu": 1000000,
+      "ngay_het_han": "2027-12-31",
+      "mo_ta": "Giảm 10% tối đa 500.000đ cho đơn hàng từ 1 triệu đồng",
+      "trang_thai": 1
+    },
+    {
+      "ma_code": "SINHVIEN20",
+      "phan_tram_giam": 20,
+      "tien_giam_toi_da": 200000,
+      "don_toi_thieu": 300000,
+      "ngay_het_han": "2027-12-31",
+      "mo_ta": "Ưu đãi đặc quyền dành cho sinh viên trường Đại học Thủ Dầu Một",
+      "trang_thai": 1
+    }
+  ]
+}

@@ -39,6 +39,7 @@ public class SanPham {
     public void setGia(int gia) { Gia = gia; }
 
     public int getSoLuong() { return SoLuong; }
+    public int getSoLuongTon() { return SoLuong; }
     public void setSoLuong(int soLuong) { SoLuong = soLuong; }
 
     public String getMoTa() { return MoTa; }

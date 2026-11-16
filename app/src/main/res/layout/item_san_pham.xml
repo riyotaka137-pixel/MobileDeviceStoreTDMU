@@ -79,4 +79,67 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
+    <!-- Dòng 1: Đánh giá sao & Đã bán -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="6dp">
+
+        <TextView
+            android:id="@+id/tvSaoSanPham"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="★ 0.0"
+            android:textColor="#FFA000"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:layout_marginEnd="6dp" />
+
+        <TextView
+            android:id="@+id/tvDaBanSanPham"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="• Đã bán 0"
+            android:textColor="#666666"
+            android:textSize="11sp"
+            android:maxLines="1"
+            android:ellipsize="end" />
+
+    </LinearLayout>
+
+    <!-- Dòng 2: Tồn kho -->
+    <TextView
+        android:id="@+id/tvTonKhoSanPham"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tồn kho: 0"
+        android:textColor="#2E7D32"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_marginTop="2dp" />
+
+    <!-- Nút Mua ngay (Chỉ hiển thị khi bật cờ showBuyNow ở Tab Khuyến mãi) -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnMuaNgaySanPham"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="8dp"
+        android:text="Mua ngay"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_btn_buy_now"
+        android:stateListAnimator="@null"
+        android:elevation="0dp"
+        android:padding="0dp"
+        android:visibility="gone" />
+
 </LinearLayout>

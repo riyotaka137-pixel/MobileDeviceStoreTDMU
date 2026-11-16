@@ -33,6 +33,7 @@ public class DangNhapActivity extends AppCompatActivity {
 
         anhXa();
         databaseHelper = new DatabaseHelper(this);
+        new Thread(() -> databaseHelper.seedDatabaseIfEmpty()).start();
 
         btnDangNhap.setOnClickListener(v -> {
             // Vô hiệu hóa nút và hiện layout Loading

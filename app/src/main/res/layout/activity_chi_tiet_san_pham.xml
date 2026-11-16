@@ -101,9 +101,9 @@
                     android:layout_height="wrap_content"
                     tools:text="0 đ"
                     android:textColor="@color/primary_black"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
-                    android:layout_marginEnd="12dp" />
+                    android:layout_marginEnd="10dp" />
 
                 <TextView
                     android:id="@+id/tvGiaGocChiTietSP"
@@ -111,21 +111,23 @@
                     android:layout_height="wrap_content"
                     tools:text="0 đ"
                     android:textColor="@color/text_secondary"
-                    android:textSize="16sp"
+                    android:textSize="13sp"
+                    android:layout_marginEnd="10dp"
                     android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvBadgeChiTietSP"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#D93025"
+                    android:background="@drawable/bg_badge_discount"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
+                    android:singleLine="true"
+                    android:maxLines="1"
                     android:paddingHorizontal="8dp"
-                    android:paddingVertical="4dp"
-                    tools:text="-10%"
-                    android:layout_marginStart="12dp"
+                    android:paddingVertical="3dp"
+                    tools:text="-15%"
                     android:visibility="gone" />
 
             </LinearLayout>
@@ -134,7 +136,7 @@
                 android:id="@+id/tvKhoChiTietSP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Còn lại: 10"
+                android:text="Đã bán: 0   |   Số lượng tồn kho: 0"
                 android:textColor="#2E7D32"
                 android:textSize="14sp"
                 android:textStyle="bold"
